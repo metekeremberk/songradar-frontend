@@ -51,19 +51,7 @@ function SignIn() {
 	);
 }
 
-export function Profile({ currentUser }) {
-	return (
-		<div className="h-96 w-80 bg-white flex flex-col items-center justify-around p-10">
-			Profile
-			<div className="flex flex-col items-center">
-				<div>{currentUser.email}</div>
-				<div>{currentUser.username}</div>
-			</div>
-		</div>
-	);
-}
-
-export function AuthMenu() {
+export default function AuthMenu() {
 	const [menu, setMenu] = useState("sign_in");
 
 	return (

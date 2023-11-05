@@ -1,5 +1,6 @@
-import getUser from "@/lib/auth";
-import { Profile, AuthMenu } from "@/components/authComponent";
+import { getUser } from "@/lib/auth";
+import AuthMenu from "@/components/AuthMenu";
+import Profile from "@/components/Profile";
 
 export default async function AuthPage() {
 	const currentUser = await getUser();

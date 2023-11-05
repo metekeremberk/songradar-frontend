@@ -19,6 +19,9 @@ async function onSignUp(prevState, formData) {
 	});
 
 	const res = await response.json();
+	if (res.hasOwnProperty("username")) {
+		const signInRes = await onSignIn(null, formData);
+	}
 	return res;
 }
 

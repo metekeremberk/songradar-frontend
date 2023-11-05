@@ -1,6 +1,8 @@
+"use server";
+
 import { cookies } from "next/headers";
 
-export default async function getUser() {
+export async function getUser() {
 	const accessToken = cookies().get("access_token");
 	console.log("accessToken:", accessToken);
 
@@ -13,8 +15,7 @@ export default async function getUser() {
 		method: "GET",
 		headers: {
 			"accept": "application/json",
-			"Authorization":
-				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZXhwIjoxNjk5MTk0NjI1fQ.685bzh9LLUCKLDoGvmQ5hbM24fX7-rDf5qxE5JbERPQ",
+			"Authorization": `Bearer ${accessToken.value}`,
 		},
 	});
 
@@ -25,4 +26,8 @@ export default async function getUser() {
 	}
 
 	return null;
+}
+
+export async function signOut() {
+	cookies().delete("access_token");
 }
