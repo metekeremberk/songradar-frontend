@@ -6,7 +6,7 @@ import Dashboard from "public/dashboard.svg";
 import { useState } from "react";
 import Link from "next/link";
 
-export default function Sidebar() {
+export default function Sidebar({ token }) {
 	const [sidebar, setSidebar] = useState(false);
 	const handleClick = () => {
 		setSidebar(!sidebar);
@@ -33,8 +33,7 @@ export default function Sidebar() {
 			<button>
 				<Image src={Dashboard} height={20} alt="dashboard" />
 			</button>
-			<Link href="/auth/sign_in">Sign In</Link>
-			<Link href="/auth/sign_up">Sign Up</Link>
+			<Link href="/auth">Auth</Link>
 		</div>
 	);
 }
