@@ -19,9 +19,6 @@ async function onSignUp(prevState, formData) {
 	});
 
 	const res = await response.json();
-
-	console.log(res);
-
 	return res;
 }
 
@@ -42,18 +39,10 @@ async function onSignIn(prevState, formData) {
 	});
 
 	const res = await response.json();
-
-	console.log(res);
-
-	cookies().set("access_token", res?.access_token, { secure: true });
-
+	if (res.hasOwnProperty("access_token")) {
+		cookies().set("access_token", res.access_token, { secure: true });
+	}
 	return res;
 }
 
-function getToken() {
-	if (cookies().has("access_token")) {
-		return cookies().get("access_token");
-	} else return null;
-}
-
-export { onSignUp, onSignIn, getToken };
+export { onSignUp, onSignIn };
