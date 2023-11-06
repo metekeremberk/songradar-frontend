@@ -19,7 +19,7 @@ export async function getUser() {
 		},
 	});
 
-	if (response.body) {
+	if (response.status === 200) {
 		const userData = await response.json();
 		console.log("userData:", userData);
 		return userData;
