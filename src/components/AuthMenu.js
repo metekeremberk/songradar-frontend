@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { useState } from "react";
-import { onSignUp, onSignIn } from "@/app/(auth)/auth/actions";
+import { onSignUp, onSignIn } from "@/lib/auth";
 
 function SignUp() {
   const [state, formAction] = useFormState(onSignUp, null);
