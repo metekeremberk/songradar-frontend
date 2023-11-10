@@ -29,10 +29,9 @@ export function Icon({ src, alt, onClick, className }) {
     <Image
       src={src}
       alt={alt}
-      width={20}
       height={20}
       onClick={onClick}
-      className={className}
+      className={className + " h-5 w-auto object-contain"}
     />
   );
 }
