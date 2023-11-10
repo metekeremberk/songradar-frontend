@@ -21,7 +21,7 @@ export async function GET() {
   return NextResponse.json("Validation error.", { status: 422 });
 }
 
-export async function POST(req, res) {
+export async function POST(req) {
   const data = await req.json();
 
   const response = await fetch("http://127.0.0.1:8000/debug/album", {
@@ -32,6 +32,27 @@ export async function POST(req, res) {
     },
     body: JSON.stringify(data),
   });
+
+  if (response.status === 200) {
+    return NextResponse.json("Successful.", { status: 200 });
+  }
+
+  return NextResponse.json("Validation Error", { status: 422 });
+}
+
+export async function DELETE(req) {
+  const data = await req.json();
+
+  const response = await fetch(
+    `http://127.0.0.1:8000/debug/album?album_id=${data.id}`,
+    {
+      method: "DELETE",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    },
+  );
 
   if (response.status === 200) {
     return NextResponse.json("Successful.", { status: 200 });

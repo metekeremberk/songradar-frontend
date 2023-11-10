@@ -61,7 +61,7 @@ export default function Sidebar() {
     <div
       className={
         "relative flex h-full flex-col items-center justify-between overflow-hidden border-r bg-gray-50 transition-all delay-75 duration-500" +
-        `${sidebar ? " w-60 " : " w-12 "}`
+        `${sidebar ? " w-60 min-w-[240px] " : " w-12 min-w-[48px] "}`
       }
     >
       <div className="mt-3 flex w-full flex-col items-center justify-center">
@@ -90,7 +90,7 @@ export default function Sidebar() {
         <div className="w-full child:py-3">
           <div className="w-full">
             <Link
-              href={"/"}
+              href={"/music/songs"}
               className={
                 "flex rounded py-2 hover:bg-gray-200 " +
                 `${sidebar ? " mx-3 bg-gray-100 delay-200" : " mx-1"}`
@@ -118,13 +118,13 @@ export default function Sidebar() {
                   }`
                 }
               >
-                Search
+                Songs
               </p>
             </Link>
           </div>
           <div className="w-full">
             <Link
-              href={"/albums"}
+              href={"/music/albums"}
               className={
                 "flex rounded py-2 hover:bg-gray-200 " +
                 `${sidebar ? " mx-3 bg-gray-100 delay-200" : " mx-1"}`

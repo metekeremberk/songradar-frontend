@@ -1,7 +1,6 @@
 import Sidebar from "@/components/sidebar/Sidebar";
 import "../globals.css";
-import UserContext, { AuthContext } from "@/context/userContext";
-import { useContext } from "react";
+import UserContext from "@/context/userContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,7 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="flex h-screen w-full font-mono">
+      <body className="flex h-screen w-full overflow-hidden font-mono">
         <UserContext>
           <Sidebar />
           {children}
