@@ -30,7 +30,16 @@ pnpm install
 bun install
 ```
 
-4. **Run the development server**
+4. **Environment variables**
+
+Create a .env.local file in your songradar-frontend directory.
+
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:3000
+NEXT_PUBLIC_DB_URL=your_database_url
+```
+
+5. **Run the development server**
 
 ```bash
 npm run dev
