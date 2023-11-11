@@ -1,8 +1,8 @@
 "use client";
 
-import AlbumList from "@/components/albums/AlbumList";
-import CreateAlbum from "@/components/albums/CreateAlbum";
-import DeleteAlbum from "@/components/albums/DeleteAlbum";
+import SongList from "@/components/songs/SongList";
+import CreateSong from "@/components/songs/CreateSong";
+import DeleteSong from "@/components/songs/DeleteSong";
 import { useState } from "react";
 
 export default function AlbumMenu() {
@@ -18,7 +18,7 @@ export default function AlbumMenu() {
             `${page === 1 && " bg-gray-100 "}`
           }
         >
-          Search Albums
+          Search Songs
         </button>
         <button
           onClick={() => setPage(2)}
@@ -27,7 +27,7 @@ export default function AlbumMenu() {
             `${page === 2 && " bg-gray-100 "}`
           }
         >
-          Create Albums
+          Create Songs
         </button>
         <button
           onClick={() => setPage(3)}
@@ -36,13 +36,13 @@ export default function AlbumMenu() {
             `${page === 3 && " bg-gray-100 "}`
           }
         >
-          Delete Albums
+          Delete Songs
         </button>
       </div>
       <div className="flex h-full w-full items-center justify-center">
-        {page === 1 && <AlbumList />}
-        {page === 2 && <CreateAlbum />}
-        {page === 3 && <DeleteAlbum />}
+        {page === 1 && <SongList />}
+        {page === 2 && <CreateSong />}
+        {page === 3 && <DeleteSong />}
       </div>
     </div>
   );

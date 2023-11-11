@@ -1,4 +1,5 @@
 import AlbumContext from "@/context/albumContext";
+import SongContext from "@/context/songContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function layout({ children }) {
-  return <AlbumContext>{children}</AlbumContext>;
+  return (
+    <AlbumContext>
+      <SongContext>{children}</SongContext>
+    </AlbumContext>
+  );
 }

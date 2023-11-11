@@ -66,14 +66,15 @@ export default function Sidebar() {
     >
       <div className="mt-3 flex w-full flex-col items-center justify-center">
         <div className={"mb-3 flex w-full"}>
-          <p
+          <Link
+            href={"/"}
             className={
               "transition-all duration-300" +
               `${sidebar ? " basis-4/5 pl-6" : " w-0 basis-0 opacity-0"}`
             }
           >
             SongRadar
-          </p>
+          </Link>
           <Icon
             src={HamburgerMenu}
             alt="hamburger-menu"
