@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const response = await fetch(
-    "http://127.0.0.1:8000/debug/albums?skip=0&limit=100",
+    `${process.env.NEXT_PUBLIC_DB_URL}/debug/albums?skip=0&limit=100`,
     {
       cache: "no-store",
       method: "GET",
@@ -24,14 +24,17 @@ export async function GET() {
 export async function POST(req) {
   const data = await req.json();
 
-  const response = await fetch("http://127.0.0.1:8000/debug/album", {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "Content-Type": "application/json",
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_DB_URL}/debug/album`,
+    {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     },
-    body: JSON.stringify(data),
-  });
+  );
 
   if (response.status === 200) {
     return NextResponse.json("Successful.", { status: 200 });
@@ -44,7 +47,7 @@ export async function DELETE(req) {
   const data = await req.json();
 
   const response = await fetch(
-    `http://127.0.0.1:8000/debug/album?album_id=${data.id}`,
+    `${process.env.NEXT_PUBLIC_DB_URL}/debug/album?album_id=${data.id}`,
     {
       method: "DELETE",
       headers: {

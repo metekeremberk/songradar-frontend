@@ -9,7 +9,7 @@ export default function AlbumContext({ children }) {
 
   // Get albums on initial render
   useEffect(() => {
-    fetch("http://localhost:3000/api/music/albums", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
       cache: "no-store",
       method: "GET",
     }).then((res) => {
@@ -25,7 +25,7 @@ export default function AlbumContext({ children }) {
   // Update albums every 5 seconds
   useEffect(() => {
     setTimeout(() => {
-      fetch("http://localhost:3000/api/music/albums", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
         cache: "no-store",
         method: "GET",
       }).then((res) => {
@@ -46,7 +46,7 @@ export default function AlbumContext({ children }) {
       performers: formData.get("performers"),
     };
 
-    fetch("http://localhost:3000/api/music/albums", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
       cache: "no-store",
       method: "POST",
       body: JSON.stringify(data),
@@ -57,7 +57,7 @@ export default function AlbumContext({ children }) {
     if (formData.get("album") === "default") return;
     const data = JSON.parse(formData.get("album"));
 
-    fetch("http://localhost:3000/api/music/albums", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
       cache: "no-store",
       method: "DELETE",
       body: JSON.stringify(data),

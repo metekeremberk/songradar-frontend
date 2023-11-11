@@ -27,7 +27,7 @@ export default function Sidebar() {
   };
 
   const handleSignOut = () => {
-    fetch("http://localhost:3000/api/signOut", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signOut`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export default function Sidebar() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/getUser", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getUser`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +237,7 @@ export default function Sidebar() {
         <div className="my-3 w-full">
           <div
             className={
-              "flex rounded py-2 transition-all hover:bg-gray-200" +
+              "flex cursor-pointer rounded py-2 transition-all hover:bg-gray-200" +
               `${sidebar ? " mx-3 bg-gray-100 delay-200" : " mx-1"}`
             }
             onClick={() => {
@@ -248,7 +248,7 @@ export default function Sidebar() {
               src={User}
               alt="user"
               className={
-                "z-50 cursor-pointer " +
+                "z-50 " +
                 `${
                   sidebar
                     ? " basis-1/5 duration-0"

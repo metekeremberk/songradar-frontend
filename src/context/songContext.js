@@ -9,7 +9,7 @@ export default function SongContext({ children }) {
 
   // Get songs on initial render
   useEffect(() => {
-    fetch("http://localhost:3000/api/music/songs", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
       cache: "no-store",
       method: "GET",
     }).then((res) => {
@@ -24,7 +24,7 @@ export default function SongContext({ children }) {
   // Update songs every 5 seconds
   useEffect(() => {
     setTimeout(() => {
-      fetch("http://localhost:3000/api/music/songs", {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
         cache: "no-store",
         method: "GET",
       }).then((res) => {
@@ -46,7 +46,7 @@ export default function SongContext({ children }) {
       album_id: parseInt(formData.get("album_id")),
     };
 
-    fetch("http://localhost:3000/api/music/songs", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
       cache: "no-store",
       method: "POST",
       body: JSON.stringify(data),
@@ -57,7 +57,7 @@ export default function SongContext({ children }) {
     if (formData.get("album") === "default") return;
     const data = JSON.parse(formData.get("album"));
 
-    fetch("http://localhost:3000/api/music/songs", {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
       cache: "no-store",
       method: "DELETE",
       body: JSON.stringify(data),
