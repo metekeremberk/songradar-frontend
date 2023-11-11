@@ -14,9 +14,9 @@ git clone https://github.com/metekeremberk/songradar-frontend
 
 2. **Navigate to the project directory**
 
-   ```bash
-   cd songradar-frontend
-   ```
+```bash
+cd songradar-frontend
+```
 
 3. **Install dependencies**
 
