@@ -17,8 +17,8 @@ export default function CreateAlbum() {
       <input type="number" name="year" placeholder="Year" required />
       <input type="text" name="genre" placeholder="Genre" required />
       <input type="text" name="performers" placeholder="Performers" required />
-      <select defaultValue={"Select album"} name="album_id">
-        <option value={"default"}>Select album</option>
+      <input list="album" placeholder="Select album" name="album_id" />
+      <datalist id="album">
         {albums?.map((album, index) => {
           return (
             <option value={album.id} key={index}>
@@ -26,7 +26,7 @@ export default function CreateAlbum() {
             </option>
           );
         })}
-      </select>
+      </datalist>
       <button type="submit" className="bg-gray-800 text-gray-50 ">
         Create
       </button>

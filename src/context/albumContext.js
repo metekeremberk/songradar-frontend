@@ -15,14 +15,13 @@ export default function AlbumContext({ children }) {
     }).then((res) => {
       if (res.status == 200) {
         res.json().then((data) => {
-          console.log(data);
           setAlbums(data);
         });
       }
     });
   }, []);
 
-  // Update albums every 5 seconds
+  // Update albums every 10 seconds
   useEffect(() => {
     setTimeout(() => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {

@@ -21,7 +21,7 @@ export default function SongContext({ children }) {
     });
   }, []);
 
-  // Update songs every 5 seconds
+  // Update songs every 10 seconds
   useEffect(() => {
     setTimeout(() => {
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
