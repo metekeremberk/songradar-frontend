@@ -27,9 +27,9 @@ export default function AlbumItem({ index, album }) {
               : "h-0 scale-0"
           }
         >
-          {album.songs?.map((song) => {
+          {album.songs?.map((song, i) => {
             return (
-              <div className="flex w-full items-center py-1">
+              <div key={i} className="flex w-full items-center py-1">
                 <div className="basis-2/6 truncate border-r px-2">
                   {" "}
                   | {song.title}

@@ -6,7 +6,7 @@ export default function page() {
     <main className="grid h-full w-full grid-cols-2 gap-4 bg-zinc-950 p-4">
       <Link
         href={"/music/albums"}
-        className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+        className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/30"
       >
         <MusicSVG
           className={
@@ -15,7 +15,7 @@ export default function page() {
           color="#064e3b"
           size={600}
         />
-        <div className="grid-rows-12 grid h-full w-full">
+        <div className="grid h-full w-full grid-rows-12">
           <p className="row-span-1 flex w-full items-center border-b border-zinc-800">
             Albums
           </p>
@@ -24,7 +24,7 @@ export default function page() {
       </Link>
       <Link
         href={"/music/songs"}
-        className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+        className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/30"
       >
         <MusicSVG
           className={
@@ -33,7 +33,7 @@ export default function page() {
           color="#064e3b"
           size={600}
         />
-        <div className="grid-rows-12 grid h-full w-full">
+        <div className="grid h-full w-full grid-rows-12">
           <p className="row-span-1 flex w-full items-center border-b border-zinc-800">
             Songs
           </p>

@@ -14,7 +14,7 @@ export default function Home() {
       <div className="grid h-full w-full grid-cols-3 gap-4">
         <Link
           href={"/music/albums"}
-          className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <MusicSVG
             className={
@@ -32,7 +32,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/music/songs"}
-          className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <MusicSVG
             className={
@@ -50,7 +50,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/"}
-          className="relative z-0 row-span-2 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 row-span-2 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <FolderSVG
             className={
@@ -59,7 +59,7 @@ export default function Home() {
             color="#064e3b"
             size={400}
           />
-          <div className="grid-rows-12 grid h-full w-full">
+          <div className="grid h-full w-full grid-rows-12">
             <p className="row-span-1 flex w-full items-center border-b border-zinc-800">
               Playlists
             </p>
@@ -68,7 +68,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/"}
-          className="relative z-0 col-span-2 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 col-span-2 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <LikeSVG
             className={
@@ -86,7 +86,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/"}
-          className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <UserSVG
             className={
@@ -104,7 +104,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/"}
-          className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <StarSVG
             className={
@@ -122,7 +122,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/"}
-          className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950"
+          className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/40"
         >
           <SettingsSVG
             className={

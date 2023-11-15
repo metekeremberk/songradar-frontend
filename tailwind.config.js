@@ -36,6 +36,13 @@ module.exports = {
       gridRow: {
         "span-11": "span 11 / span 11",
       },
+      boxShadow: {
+        equal: "0 0 1px 1px rgba(0, 0, 0, 0.1)",
+        "equal-md": "0 0 4px 4px rgba(0, 0, 0, 0.1)",
+        "equal-lg": "0 0 10px 10px rgba(0, 0, 0, 0.1)",
+        "equal-xl": "0 0 20px 20px rgba(0, 0, 0, 0.1)",
+        "equal-2xl": "0 0 25px 25px rgba(0, 0, 0, 0.1)",
+      },
     },
   },
   plugins: [

@@ -58,9 +58,7 @@ async function onSignIn(prevState, formData) {
   return res;
 }
 
-export { onSignUp, onSignIn };
-
-export async function getUser() {
+async function getUser() {
   const accessToken = cookies().get("access_token");
 
   if (!accessToken) {
@@ -83,3 +81,5 @@ export async function getUser() {
 
   return null;
 }
+
+export { onSignUp, onSignIn, getUser };

@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   if (cookies().has("access_token")) {
     cookies().delete("access_token");
-    return new NextResponse("OK");
+    return NextResponse.json("OK", { status: 200 });
   }
 
-  return new NextResponse.json("Unauthorized", { status: 401 });
+  return NextResponse.json("Unauthorized", { status: 401 });
 }

@@ -22,7 +22,7 @@ export default function AlbumList() {
             <div className="basis-1/6 truncate px-2">Year</div>
           </li>
           {albums?.map((album, index) => {
-            return <AlbumItem index={index} album={album} />;
+            return <AlbumItem key={index} index={index} album={album} />;
           })}
         </>
       )}

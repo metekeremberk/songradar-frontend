@@ -10,7 +10,7 @@ export default async function AuthPage() {
   }
 
   return (
-    <div className="flex h-screen w-full items-center justify-center backdrop-blur child:rounded child:border">
+    <div className="flex h-screen w-full items-center justify-center bg-zinc-950 backdrop-blur child:border">
       <AuthMenu />
     </div>
   );
