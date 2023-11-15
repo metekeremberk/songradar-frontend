@@ -37,15 +37,7 @@ export default function SongContext({ children }) {
     }, 10000);
   });
 
-  async function createSong(formData) {
-    const data = {
-      title: formData.get("title"),
-      year: parseInt(formData.get("year")),
-      genre: formData.get("genre"),
-      performers: formData.get("performers"),
-      album_id: parseInt(formData.get("album_id")),
-    };
-
+  async function createSong(data) {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
       cache: "no-store",
       method: "POST",
@@ -53,10 +45,7 @@ export default function SongContext({ children }) {
     });
   }
 
-  async function deleteSong(formData) {
-    if (formData.get("album") === "default") return;
-    const data = JSON.parse(formData.get("album"));
-
+  async function deleteSong(data) {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
       cache: "no-store",
       method: "DELETE",

@@ -52,10 +52,7 @@ export default function AlbumContext({ children }) {
     });
   }
 
-  async function deleteAlbum(formData) {
-    if (formData.get("album") === "default") return;
-    const data = JSON.parse(formData.get("album"));
-
+  async function deleteAlbum(data) {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
       cache: "no-store",
       method: "DELETE",
