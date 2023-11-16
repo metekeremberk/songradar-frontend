@@ -13,26 +13,32 @@ export default function AlbumList() {
         <>
           <li
             key={0}
-            className="sticky top-0 flex w-full items-center rounded bg-white px-4 py-2 text-center shadow"
+            className="sticky top-0 flex w-full items-center rounded bg-zinc-800 px-4 py-2 text-center text-gray-100 shadow-md"
           >
-            <div className="basis-2/6 truncate border-r px-2">Title</div>
-            <div className="basis-1/6 truncate border-r px-2">Genre</div>
-            <div className="basis-2/6 truncate border-r px-2">Performers</div>
+            <div className="basis-2/6 truncate border-r border-zinc-600 px-2">
+              Title
+            </div>
+            <div className="basis-1/6 truncate border-r border-zinc-600 px-2">
+              Genre
+            </div>
+            <div className="basis-2/6 truncate border-r border-zinc-600 px-2">
+              Performers
+            </div>
             <div className="basis-1/6 truncate px-2">Year</div>
           </li>
           {songs?.map((song, index) => {
             return (
               <li
                 key={index + 1}
-                className="flex w-full items-center rounded bg-white px-4 py-2 text-left"
+                className="flex w-full items-center rounded bg-zinc-800 px-4 py-2 text-sm text-gray-100"
               >
-                <div className="basis-2/6 truncate border-r px-2">
+                <div className="basis-2/6 truncate border-r border-zinc-600 px-2">
                   {song.title}
                 </div>
-                <div className="basis-1/6 truncate border-r px-2">
+                <div className="basis-1/6 truncate border-r border-zinc-600 px-2">
                   {song.genre}
                 </div>
-                <div className="basis-2/6 truncate border-r px-2">
+                <div className="basis-2/6 truncate border-r border-zinc-600 px-2">
                   {song.performers}
                 </div>
                 <div className="basis-1/6 truncate px-2">{song.year}</div>

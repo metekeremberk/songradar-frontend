@@ -61,7 +61,7 @@ export default function AuthMenu() {
   const [menu, setMenu] = useState("sign_in");
 
   return (
-    <div className="shadow-equal-xl flex flex-col rounded border-zinc-700 bg-zinc-900 text-gray-100 shadow-zinc-900/30">
+    <div className="flex flex-col rounded-lg border-zinc-700 bg-zinc-900 text-gray-100 shadow-equal-xl shadow-zinc-900/30">
       <div className="flex w-full p-2">
         <button
           onClick={() => {

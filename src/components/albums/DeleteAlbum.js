@@ -28,10 +28,18 @@ export default function DeleteAlbum() {
   return (
     <form
       action={onAction}
-      className="child:rounded child:border child:px-4 child:py-2 flex min-w-[300px] flex-col gap-4 rounded border bg-gray-50 p-4 shadow"
+      className="flex min-w-[300px] flex-col gap-4 rounded border border-zinc-700 bg-zinc-800 p-4 shadow "
     >
-      <Combobox items={comboboxArray} message={"Select album"} setId={setId} />
-      <button type="submit" className="bg-gray-800 text-gray-50 ">
+      <Combobox
+        items={comboboxArray}
+        message={"Select album"}
+        setId={setId}
+        className="rounded border px-4 py-2"
+      />
+      <button
+        type="submit"
+        className="rounded border border-zinc-700 bg-zinc-900 px-4 py-2 text-gray-100 transition-colors hover:bg-zinc-800"
+      >
         Delete album
       </button>
     </form>

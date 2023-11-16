@@ -29,14 +29,14 @@ export function Combobox({ items, message, setId }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between"
+          className="justify-between border-zinc-700 bg-zinc-900 text-gray-100 hover:bg-zinc-800 hover:text-gray-100"
         >
           {value ? items.find((item) => item.label === value)?.label : message}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="max-h-80 overflow-y-auto p-0">
-        <Command>
+      <PopoverContent className="max-h-80 overflow-y-auto border-zinc-700 bg-zinc-800 p-0">
+        <Command className=" bg-zinc-800 text-gray-100">
           <CommandInput placeholder={message} />
           <CommandEmpty>No item found.</CommandEmpty>
           <CommandGroup>
@@ -49,6 +49,7 @@ export function Combobox({ items, message, setId }) {
                   setId(item.value);
                   setOpen(false);
                 }}
+                className="text-gray-100 aria-selected:bg-zinc-700 aria-selected:text-gray-100"
               >
                 <Check
                   className={cn(
