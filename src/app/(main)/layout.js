@@ -1,5 +1,7 @@
 import "../globals.css";
 import UserContext from "@/context/userContext";
+import AlbumContext from "@/context/albumContext";
+import SongContext from "@/context/songContext";
 import Sidebar from "@/components/sidebar/Sidebar";
 
 export const metadata = {
@@ -12,8 +14,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className="flex h-screen w-full overflow-hidden font-mono">
         <UserContext>
-          <Sidebar />
-          {children}
+          <AlbumContext>
+            <SongContext>
+              <Sidebar />
+              {children}
+            </SongContext>
+          </AlbumContext>
         </UserContext>
       </body>
     </html>

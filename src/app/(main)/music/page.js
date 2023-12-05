@@ -6,7 +6,7 @@ export default function page() {
     <main className="grid h-full w-full grid-cols-2 gap-4 bg-zinc-950 p-4">
       <Link
         href={"/music/albums"}
-        className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/30"
+        className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-equal-lg hover:shadow-zinc-900/30"
       >
         <MusicSVG
           className={
@@ -23,8 +23,8 @@ export default function page() {
         </div>
       </Link>
       <Link
-        href={"/music/songs"}
-        className="hover:shadow-equal-lg relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-zinc-900/30"
+        href={"/music/"}
+        className="relative z-0 flex items-center justify-center overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 bg-left-bottom p-4 text-gray-100 transition-all duration-300 hover:scale-[101%] hover:bg-zinc-950 hover:shadow-equal-lg hover:shadow-zinc-900/30"
       >
         <MusicSVG
           className={

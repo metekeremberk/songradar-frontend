@@ -6,6 +6,7 @@ export const albumContext = createContext(null);
 
 export default function AlbumContext({ children }) {
   const [albums, setAlbums] = useState([]);
+  const [response, setResponse] = useState(null);
 
   // Get albums on initial render
   useEffect(() => {
@@ -37,19 +38,14 @@ export default function AlbumContext({ children }) {
     }, 10000);
   });
 
-  async function createAlbum(formData) {
-    const data = {
-      title: formData.get("title"),
-      year: parseInt(formData.get("year")),
-      genre: formData.get("genre"),
-      performers: formData.get("performers"),
-    };
-
+  async function createAlbum(data) {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`, {
       cache: "no-store",
       method: "POST",
       body: JSON.stringify(data),
-    });
+    }).then((res) => setResponse(res));
+
+    return response;
   }
 
   async function deleteAlbum(data) {
@@ -57,7 +53,9 @@ export default function AlbumContext({ children }) {
       cache: "no-store",
       method: "DELETE",
       body: JSON.stringify(data),
-    });
+    }).then((res) => setResponse(res));
+
+    return response;
   }
 
   return (

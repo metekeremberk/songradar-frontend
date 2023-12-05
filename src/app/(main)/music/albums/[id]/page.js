@@ -9,11 +9,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { albumContext } from "@/context/albumContext";
 import PlusSVG from "@/components/svg/PlusSVG";
+import MusicSVG from "@/components/svg/MusicSVG";
+import MinusSVG from "@/components/svg/MinusSVG";
+import BackSVG from "@/components/svg/BackSVG";
+import StarSVG from "@/components/svg/StarSVG";
 import UploadSVG from "@/components/svg/UploadSVG";
+import { albumContext } from "@/context/albumContext";
+import { songContext } from "@/context/songContext";
+import ThrashSVG from "@/components/svg/ThrashSVG";
 
-function AddAlbum({ className, createAlbum }) {
+function AddSong({ album, className, createSong }) {
   const [response, setResponse] = useState(null);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState(0);
@@ -27,9 +33,10 @@ function AddAlbum({ className, createAlbum }) {
       year: year,
       genre: genre,
       performers: performers,
+      album_id: album.id,
     };
 
-    const res = await createAlbum(data);
+    const res = await createSong(data);
     setResponse(res);
   }
 
@@ -43,11 +50,11 @@ function AddAlbum({ className, createAlbum }) {
       );
 
       for (let i = 0; i < json.length; i++) {
-        const album = array[i];
-        setTitle(album.title);
-        setGenre(album.genre);
-        setPerformers(album.performers);
-        setYear(album.year);
+        const song = array[i];
+        setTitle(song.title);
+        setGenre(song.genre);
+        setPerformers(song.performers);
+        setYear(song.year);
         onAction();
       }
     } catch (error) {
@@ -58,13 +65,14 @@ function AddAlbum({ className, createAlbum }) {
   return (
     <div className={className}>
       <Dialog>
-        <DialogTrigger className="h-full w-full">
-          <PlusSVG color="#f9fafb" size={30} className={"m-auto"} />
-          <p className="-mb-7 pt-5">Create a new album</p>
+        <DialogTrigger>
+          <div className="-mb-1.5 p-1">
+            <PlusSVG color="#f9fafb" size={30} />
+          </div>
         </DialogTrigger>
         <DialogContent className="border-zinc-700 bg-zinc-800 text-gray-100">
           <DialogHeader>
-            <DialogTitle>Create an album</DialogTitle>
+            <DialogTitle>Add a song to {album?.title}</DialogTitle>
           </DialogHeader>
           <div className="flex h-full w-full flex-col items-center justify-center gap-5 px-5 text-gray-100">
             <form
@@ -112,7 +120,7 @@ function AddAlbum({ className, createAlbum }) {
                 type="submit"
                 className="mt-auto rounded border border-zinc-700 bg-zinc-800 px-4 py-2 text-gray-100 transition-colors hover:bg-zinc-700"
               >
-                Create Album
+                Create Song
               </button>
             </form>
             <form className="flex basis-2/3">
@@ -146,32 +154,77 @@ function AddAlbum({ className, createAlbum }) {
   );
 }
 
-export default function Page() {
-  const { albums, createAlbum } = useContext(albumContext);
+export default function page({ params }) {
+  const { albums } = useContext(albumContext);
+  const { createSong, deleteSong } = useContext(songContext);
+
+  const album = albums.find((item) => item.id === Number(params.id));
   return (
-    <div className="grid w-full grid-cols-7 items-center gap-5 overflow-y-auto bg-zinc-950 p-5">
-      <AddAlbum
-        createAlbum={createAlbum}
+    <div className="relative grid h-full w-full grid-cols-4 grid-rows-5 bg-zinc-950 text-gray-50">
+      <Link
+        className="absolute left-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
+        href={"./"}
+      >
+        <BackSVG color="#f9fafb" size={30} />
+      </Link>
+      <AddSong
+        className="absolute right-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
+        album={album}
+        createSong={createSong}
+      />
+      <MusicSVG
+        color="#064e3b"
+        size={200}
         className={
-          "h-full min-h-[150px] w-full rounded border border-zinc-700 bg-zinc-800 text-gray-50"
+          "row-span-2 m-auto rounded border border-zinc-700 bg-zinc-800 p-1"
         }
       />
-      {albums.length === 0 && <p key={0}>There are no albums.</p>}
-      {albums.length > 0 && (
-        <>
-          {albums?.map((album, i) => {
-            return (
-              <Link
-                className="h-full min-h-[150px] w-full rounded border border-zinc-700 bg-zinc-800 text-gray-50"
-                key={i}
-                href={"./albums/" + album.id}
-              >
-                <p>{album.title}</p>
-              </Link>
-            );
-          })}
-        </>
-      )}
+      <div className="col-span-3 row-span-2 flex h-full items-end pb-24 text-2xl font-light">
+        {album?.title}
+      </div>
+      <div className="col-span-4 row-span-3 flex flex-col overflow-y-auto border-t border-zinc-700 p-5">
+        {album?.songs.map((song, i) => {
+          return (
+            <div
+              className="relative grid w-full grid-cols-4 border-t border-zinc-700 p-4 transition-colors hover:bg-zinc-800"
+              key={i}
+            >
+              <p className="truncate px-2">{song.title}</p>
+              <p className="truncate border-l border-zinc-700 px-2">
+                {song.year}
+              </p>
+              <p className="truncate border-l border-zinc-700 px-2">
+                {song.genre}
+              </p>
+              <p className="truncate border-l border-zinc-700 px-2">
+                {song.performers}
+              </p>
+              <StarSVG
+                className={
+                  "absolute right-24 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
+                }
+                size={25}
+                color="#f9fafb"
+              />
+              <MinusSVG
+                className={
+                  "absolute right-14 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
+                }
+                size={25}
+                color="#f9fafb"
+              />
+              <ThrashSVG
+                className={
+                  "absolute right-5 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
+                }
+                size={25}
+                color="#f9fafb"
+                onClick={(e) => deleteSong(song.id)}
+              />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

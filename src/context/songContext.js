@@ -6,6 +6,7 @@ export const songContext = createContext(null);
 
 export default function SongContext({ children }) {
   const [songs, setSongs] = useState([]);
+  const [response, setResponse] = useState(null);
 
   // Get songs on initial render
   useEffect(() => {
@@ -42,7 +43,11 @@ export default function SongContext({ children }) {
       cache: "no-store",
       method: "POST",
       body: JSON.stringify(data),
+    }).then((res) => {
+      setResponse(res);
     });
+
+    return response;
   }
 
   async function deleteSong(data) {
@@ -50,7 +55,11 @@ export default function SongContext({ children }) {
       cache: "no-store",
       method: "DELETE",
       body: JSON.stringify(data),
+    }).then((res) => {
+      setResponse(res);
     });
+
+    return response;
   }
 
   return (
