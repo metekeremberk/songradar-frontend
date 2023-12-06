@@ -18,6 +18,17 @@ import UploadSVG from "@/components/svg/UploadSVG";
 import { albumContext } from "@/context/albumContext";
 import { songContext } from "@/context/songContext";
 import ThrashSVG from "@/components/svg/ThrashSVG";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 function AddSong({ album, className, createSong }) {
   const [response, setResponse] = useState(null);
@@ -154,8 +165,37 @@ function AddSong({ album, className, createSong }) {
   );
 }
 
+function DeleteButton({ func, name, item, className, size = 30 }) {
+  return (
+    <div className={className}>
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <div className="-mb-1.5 p-1">
+            <ThrashSVG size={size} color="#f9fafb" />
+          </div>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete this{" "}
+              {name}.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>
+              <button onClick={(e) => func(item)}>Delete</button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}
+
 export default function page({ params }) {
-  const { albums } = useContext(albumContext);
+  const { albums, deleteAlbum } = useContext(albumContext);
   const { createSong, deleteSong } = useContext(songContext);
 
   const album = albums.find((item) => item.id === Number(params.id));
@@ -168,9 +208,17 @@ export default function page({ params }) {
         <BackSVG color="#f9fafb" size={30} />
       </Link>
       <AddSong
-        className="absolute right-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
+        className="absolute right-20 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
         album={album}
         createSong={createSong}
+      />
+      <DeleteButton
+        className={
+          "absolute right-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
+        }
+        func={deleteAlbum}
+        item={album}
+        name={"album"}
       />
       <MusicSVG
         color="#064e3b"
@@ -213,13 +261,14 @@ export default function page({ params }) {
                 size={25}
                 color="#f9fafb"
               />
-              <ThrashSVG
+              <DeleteButton
                 className={
-                  "absolute right-5 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
+                  "absolute right-3 mt-3 cursor-pointer rounded-full hover:bg-zinc-700"
                 }
+                func={deleteSong}
+                item={song}
+                name={"song"}
                 size={25}
-                color="#f9fafb"
-                onClick={(e) => deleteSong(song.id)}
               />
             </div>
           );

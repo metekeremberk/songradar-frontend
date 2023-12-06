@@ -20,6 +20,11 @@ const buttons = [
     href: "/music",
   },
   {
+    svg: <MusicSVG className={"w-full"} color="#f3f4f6" size={25} />,
+    title: "Albums",
+    href: "/music/albums",
+  },
+  {
     svg: <FolderSVG className={"w-full"} color="#f3f4f6" size={25} />,
     title: "Playlists",
     href: "/playlists",
