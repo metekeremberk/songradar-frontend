@@ -52,3 +52,12 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Features
+In this app, you can
+ * Login/ Sign Up with Tokens for security (Extra - Authentication)
+ * See album / song / performer info
+ * Add songs and albums via manual user input (MVP - Data Collection 1)
+ * Add songs and albums via file selection (MVP - Data Collection 2)
+ * Add songs and albums via data reading from another local database (MVP - Data Collection 3)
+ * Delete album and all songs within that album (MVP - Data Collection 5)
