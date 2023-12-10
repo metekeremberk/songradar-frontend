@@ -15,18 +15,14 @@ import UploadSVG from "@/components/svg/UploadSVG";
 
 function AddAlbum({ className, createAlbum }) {
   const [response, setResponse] = useState(null);
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState(0);
-  const [genre, setGenre] = useState("");
-  const [performers, setPerformers] = useState("");
   const [file, setFile] = useState(undefined);
 
-  async function onAction() {
+  async function onAction(formData) {
     const data = {
-      title: title,
-      year: year,
-      genre: genre,
-      performers: performers,
+      title: formData.get("title"),
+      year: parseInt(formData.get("year")),
+      genre: formData.get("genre"),
+      performers: formData.get("performers"),
     };
 
     const res = await createAlbum(data);
@@ -43,18 +39,17 @@ function AddAlbum({ className, createAlbum }) {
       );
 
       for (let i = 0; i < json.length; i++) {
-        const album = array[i];
-        setTitle(album.title);
-        setGenre(album.genre);
-        setPerformers(album.performers);
-        setYear(album.year);
-        onAction();
+        const album = json[i];
+
+        const res = await createAlbum(album);
+        setResponse(res);
       }
     } catch (error) {
       console.log(error);
       return;
     }
   }
+
   return (
     <div className={className}>
       <Dialog>
@@ -77,7 +72,6 @@ function AddAlbum({ className, createAlbum }) {
                 placeholder="Title"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-                onChange={(e) => setTitle(e.target.value)}
               />
               <input
                 type="number"
@@ -85,7 +79,6 @@ function AddAlbum({ className, createAlbum }) {
                 placeholder="Year"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-                onChange={(e) => setYear(parseInt(e.target.value))}
               />
               <input
                 type="text"
@@ -93,7 +86,6 @@ function AddAlbum({ className, createAlbum }) {
                 placeholder="Genre"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-                onChange={(e) => setGenre(e.target.value)}
               />
               <input
                 type="text"
@@ -101,7 +93,6 @@ function AddAlbum({ className, createAlbum }) {
                 placeholder="Performers"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-                onChange={(e) => setPerformers(e.target.value)}
               />
               {response?.status !== 200 && response !== null && (
                 <p className="text-center text-sm text-red-500">
@@ -149,29 +140,31 @@ function AddAlbum({ className, createAlbum }) {
 export default function Page() {
   const { albums, createAlbum } = useContext(albumContext);
   return (
-    <div className="grid w-full grid-cols-7 items-center gap-5 overflow-y-auto bg-zinc-950 p-5">
-      <AddAlbum
-        createAlbum={createAlbum}
-        className={
-          "h-full min-h-[150px] w-full rounded border border-zinc-700 bg-zinc-800 text-gray-50"
-        }
-      />
-      {albums.length === 0 && <p key={0}>There are no albums.</p>}
-      {albums.length > 0 && (
-        <>
-          {albums?.map((album, i) => {
-            return (
-              <Link
-                className="h-full min-h-[150px] w-full rounded border border-zinc-700 bg-zinc-800 text-gray-50"
-                key={i}
-                href={"./albums/" + album.id}
-              >
-                <p>{album.title}</p>
-              </Link>
-            );
-          })}
-        </>
-      )}
+    <div className="h-full w-full overflow-y-auto bg-zinc-950">
+      <div className="grid w-full grid-cols-7 items-center gap-5 p-5">
+        <AddAlbum
+          createAlbum={createAlbum}
+          className={
+            "aspect-square w-[1/7] rounded border border-zinc-700 bg-zinc-800 text-gray-50"
+          }
+        />
+        {albums.length === 0 && <p key={0}>There are no albums.</p>}
+        {albums.length > 0 && (
+          <>
+            {albums?.map((album, i) => {
+              return (
+                <Link
+                  className="aspect-square w-[1/7] rounded border border-zinc-700 bg-zinc-800 text-gray-50"
+                  key={i}
+                  href={"./albums/" + album.id}
+                >
+                  <p>{album.title}</p>
+                </Link>
+              );
+            })}
+          </>
+        )}
+      </div>
     </div>
   );
 }

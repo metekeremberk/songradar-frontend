@@ -16,11 +16,6 @@ import UserSVG from "../svg/UserSVG";
 const buttons = [
   {
     svg: <MusicSVG className={"w-full"} color="#f3f4f6" size={25} />,
-    title: "Music",
-    href: "/music",
-  },
-  {
-    svg: <MusicSVG className={"w-full"} color="#f3f4f6" size={25} />,
     title: "Albums",
     href: "/music/albums",
   },

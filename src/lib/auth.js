@@ -3,22 +3,19 @@
 import { cookies } from "next/headers";
 
 async function onSignUp(prevState, formData) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_DB_URL}/auth/sign_up`,
-    {
-      cache: "no-store",
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: formData.get("username"),
-        email: formData.get("email"),
-        password: formData.get("password"),
-      }),
+  const response = await fetch(`${process.env.NEXT_DB_URL}/auth/sign_up`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    }),
+  });
 
   const res = await response.json();
   if (res.hasOwnProperty("username")) {
@@ -28,24 +25,21 @@ async function onSignUp(prevState, formData) {
 }
 
 async function onSignIn(prevState, formData) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_DB_URL}/auth/sign_in`,
-    {
-      cache: "no-store",
-      method: "POST",
-      headers: {
-        accept: "application/json",
-      },
-      body: new URLSearchParams({
-        grant_type: "",
-        username: formData.get("username"),
-        password: formData.get("password"),
-        scope: "",
-        client_id: "",
-        client_secret: "",
-      }),
+  const response = await fetch(`${process.env.NEXT_DB_URL}/auth/sign_in`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      accept: "application/json",
     },
-  );
+    body: new URLSearchParams({
+      grant_type: "",
+      username: formData.get("username"),
+      password: formData.get("password"),
+      scope: "",
+      client_id: "",
+      client_secret: "",
+    }),
+  });
 
   const res = await response.json();
   if (res.hasOwnProperty("access_token")) {
@@ -65,7 +59,7 @@ async function getUser() {
     return null;
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_DB_URL}/auth/me`, {
+  const response = await fetch(`${process.env.NEXT_DB_URL}/auth/me`, {
     cache: "no-store",
     method: "GET",
     headers: {

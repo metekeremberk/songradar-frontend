@@ -8,7 +8,7 @@ export async function GET() {
     return NextResponse.json("No user found", { status: 401 });
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_DB_URL}/auth/me`, {
+  const response = await fetch(`${process.env.NEXT_DB_URL}/auth/me`, {
     cache: "no-store",
     method: "GET",
     headers: {

@@ -32,18 +32,14 @@ import {
 
 function AddSong({ album, className, createSong }) {
   const [response, setResponse] = useState(null);
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState(0);
-  const [genre, setGenre] = useState("");
-  const [performers, setPerformers] = useState("");
   const [file, setFile] = useState(undefined);
 
-  async function onAction() {
+  async function onAction(formData) {
     const data = {
-      title: title,
-      year: year,
-      genre: genre,
-      performers: performers,
+      title: formData.get("title"),
+      year: parseInt(formData.get("year")),
+      genre: formData.get("genre"),
+      performers: formData.get("performers"),
       album_id: album.id,
     };
 
@@ -62,11 +58,9 @@ function AddSong({ album, className, createSong }) {
 
       for (let i = 0; i < json.length; i++) {
         const song = array[i];
-        setTitle(song.title);
-        setGenre(song.genre);
-        setPerformers(song.performers);
-        setYear(song.year);
-        onAction();
+
+        const res = await createSong(song);
+        setResponse(res);
       }
     } catch (error) {
       console.log(error);
@@ -185,7 +179,13 @@ function DeleteButton({ func, name, item, className, size = 30 }) {
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction>
-              <button onClick={(e) => func(item)}>Delete</button>
+              <button
+                onClick={(e) => {
+                  func(item);
+                }}
+              >
+                Delete
+              </button>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
