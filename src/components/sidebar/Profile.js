@@ -7,29 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
-import { Button } from "./ui/button";
-import { AuthContext } from "@/context/userContext";
-import { useContext } from "react";
-import UserSVG from "./svg/UserSVG";
-import { useRouter } from "next/navigation";
+} from "../ui/dialog";
+import { Button } from "../ui/button";
+import UserSVG from "../svg/UserSVG";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Profile() {
-  const { user } = useContext(AuthContext);
-  const router = useRouter();
-
-  function handleSignOut() {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signOut`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      if (res.status == 200) {
-        router.push("/auth");
-      }
-    });
-  }
+  const { data: session } = useSession();
+  const user = session.user;
 
   return (
     <Dialog>
@@ -53,7 +38,7 @@ export default function Profile() {
             </label>
             <input
               name="username"
-              placeholder={user?.username}
+              placeholder={user?.name}
               className="col-span-3 rounded border border-zinc-700 px-4 py-2"
               disabled
             />
@@ -72,7 +57,7 @@ export default function Profile() {
           <div className="col-span-4 grid w-full grid-cols-4">
             <div className="col-span-3"></div>
             <div
-              onClick={handleSignOut}
+              onClick={() => signOut({ callbackUrl: "/" })}
               className="cursor-pointer rounded border border-zinc-700 bg-zinc-700 py-2 text-center transition-colors hover:bg-zinc-600"
             >
               Sign Out

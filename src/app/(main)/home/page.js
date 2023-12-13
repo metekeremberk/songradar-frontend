@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import MusicSVG from "@/components/svg/MusicSVG";
-import { useContext } from "react";
-import { AuthContext } from "@/context/userContext";
+import { useSession } from "next-auth/react";
 
 function MusicButton() {
   return (
@@ -37,13 +36,13 @@ function MusicCard() {
 }
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
-
+  const { data: session, status } = useSession();
+  const user = session.user;
   return (
     <main className="flex h-full w-full flex-col items-center overflow-y-auto bg-zinc-950 px-8 py-4 text-gray-50">
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
         <div className="flex justify-between">
-          <p className="text-xl">Recommendations for {user?.username}</p>
+          <p className="text-xl">Recommendations for {user.name}</p>
           <Link
             href={"/recommendations"}
             className="text-gray-400 hover:underline"

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import MusicSVG from "@/components/svg/MusicSVG";
+import { useSession } from "next-auth/react";
 
 export default function page() {
+  const session = useSession();
+  console.log(session);
   return (
     <main className="grid h-full w-full grid-cols-2 gap-4 bg-zinc-950 p-4">
       <Link

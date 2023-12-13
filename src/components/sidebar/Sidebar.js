@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Profile from "../Profile";
+import Profile from "./Profile";
 import {
   Sheet,
   SheetContent,
@@ -47,7 +47,7 @@ export default function Sidebar() {
           className="flex flex-col justify-between border-r border-zinc-700 bg-zinc-800 pb-2 text-gray-100"
           side="left"
         >
-          <Link href={"/"} className="border-b border-zinc-700 pb-2">
+          <Link href={"/home"} className="border-b border-zinc-700 pb-2">
             <SheetHeader>SongRadar</SheetHeader>
             <SheetDescription>SongRadar description</SheetDescription>
           </Link>
