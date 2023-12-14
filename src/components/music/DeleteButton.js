@@ -11,7 +11,7 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import ThrashSVG from "@/components/svg/ThrashSVG";
+import { Trash } from "lucide-react";
 
 async function deleteSong(data) {
   const response = fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`, {
@@ -42,7 +42,7 @@ export default function DeleteButton({ name, item, className, size = 30 }) {
       <AlertDialog>
         <AlertDialogTrigger>
           <div className="-mb-1.5 p-1">
-            <ThrashSVG size={size} color="#f9fafb" />
+            <Trash size={size} color="#f9fafb" />
           </div>
         </AlertDialogTrigger>
         <AlertDialogContent>

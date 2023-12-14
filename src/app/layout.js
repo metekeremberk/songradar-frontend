@@ -2,6 +2,12 @@ import AuthProvider from "@/context/AuthProvider";
 import "./globals.css";
 import { getServerSession } from "next-auth";
 import { options } from "./api/auth/[...nextauth]/options";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["500"],
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -12,7 +18,12 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <body className="flex h-screen w-full overflow-hidden bg-gradient-to-br from-zinc-950 to-zinc-700 font-mono text-gray-50">
+      <body
+        className={
+          "flex h-screen w-full overflow-hidden bg-gradient-to-tl from-zinc-950 to-zinc-700 text-gray-50 " +
+          poppins.className
+        }
+      >
         <AuthProvider session={session}>{children}</AuthProvider>
       </body>
     </html>

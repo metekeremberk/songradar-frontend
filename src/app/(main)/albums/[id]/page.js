@@ -1,11 +1,9 @@
 import Link from "next/link";
 
-import MusicSVG from "@/components/svg/MusicSVG";
-import BackSVG from "@/components/svg/BackSVG";
-
 import DeleteButton from "@/components/music/DeleteButton";
 import AddSong from "@/components/music/song/AddSong";
 import SongItem from "@/components/music/song/SongItem";
+import { ArrowLeft, Music } from "lucide-react";
 
 async function getAlbums() {
   const response = await fetch(
@@ -33,7 +31,7 @@ export default async function page({ params }) {
         className="absolute left-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
         href={"./"}
       >
-        <BackSVG color="#f9fafb" size={30} />
+        <ArrowLeft color="#f9fafb" size={30} />
       </Link>
       <AddSong
         className="absolute right-20 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
@@ -46,7 +44,7 @@ export default async function page({ params }) {
         item={album}
         name={"album"}
       />
-      <MusicSVG
+      <Music
         color="#064e3b"
         size={200}
         className={

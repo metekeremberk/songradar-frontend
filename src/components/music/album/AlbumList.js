@@ -15,7 +15,9 @@ export default function AlbumList({ albums }) {
           {albums?.map((album, i) => {
             return (
               <Link
-                className="aspect-square w-[1/7] rounded border border-zinc-700 bg-zinc-800 text-gray-50"
+                className={
+                  "aspect-square w-[1/7] rounded border border-zinc-700 bg-zinc-800 text-gray-50"
+                }
                 key={i}
                 href={"./albums/" + album.id}
               >

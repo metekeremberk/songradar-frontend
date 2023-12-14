@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import MusicSVG from "@/components/svg/MusicSVG";
 import { useSession } from "next-auth/react";
+import { Music } from "lucide-react";
 
 function MusicButton() {
   return (
@@ -10,10 +10,11 @@ function MusicButton() {
       className="flex h-16 items-center gap-5 rounded bg-zinc-800 transition-colors hover:bg-zinc-700"
       href={"/"}
     >
-      <MusicSVG
+      <Music
         color="#064e3b"
-        className={"h-full w-auto rounded-l bg-zinc-800 p-1 shadow-equal-md"}
+        className="h-full w-auto rounded-l bg-zinc-800 p-1 shadow-equal-md"
       />
+
       <p className="truncate text-lg font-light">Album/Song</p>
     </Link>
   );
@@ -25,7 +26,7 @@ function MusicCard() {
       className="flex w-40 flex-col items-start rounded bg-zinc-800 p-2.5 transition-colors hover:bg-zinc-700"
       href={"/"}
     >
-      <MusicSVG
+      <Music
         color="#064e3b"
         className={"h-auto w-full rounded bg-zinc-800  shadow-equal-md"}
       />
@@ -36,10 +37,10 @@ function MusicCard() {
 }
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const user = session.user;
   return (
-    <main className="flex h-full w-full flex-col items-center overflow-y-auto bg-zinc-950 px-8 py-4 text-gray-50">
+    <main className="flex h-full w-full flex-col items-center overflow-y-auto px-8 py-4 text-gray-50">
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
         <div className="flex justify-between">
           <p className="text-xl">Recommendations for {user.name}</p>
@@ -61,8 +62,62 @@ export default function Home() {
       </div>
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
+          <p className="text-xl">Songs</p>
+          <Link href={"/songs"} className="text-gray-400 hover:underline">
+            See all
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+          <MusicButton />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
+        <div className="flex justify-between">
           <p className="text-xl">Playlists</p>
           <Link href={"/playlists"} className="text-gray-400 hover:underline">
+            See all
+          </Link>
+        </div>
+        <div className="flex justify-between gap-3 overflow-x-auto">
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
+        <div className="flex justify-between">
+          <p className="text-xl">Albums</p>
+          <Link href={"/albums"} className="text-gray-400 hover:underline">
+            See all
+          </Link>
+        </div>
+        <div className="flex justify-between gap-3 overflow-x-auto">
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+          <MusicCard />
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
+        <div className="flex justify-between">
+          <p className="text-xl">Performers</p>
+          <Link href={"/performers"} className="text-gray-400 hover:underline">
             See all
           </Link>
         </div>

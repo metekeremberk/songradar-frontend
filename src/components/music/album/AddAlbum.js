@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import PlusSVG from "@/components/svg/PlusSVG";
-import UploadSVG from "@/components/svg/UploadSVG";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Plus, Upload } from "lucide-react";
 
 async function createAlbum(data) {
   const response = await fetch(
@@ -65,7 +64,7 @@ export default function AddAlbum({ className }) {
     <div className={className}>
       <Dialog>
         <DialogTrigger className="h-full w-full">
-          <PlusSVG color="#f9fafb" size={30} className={"m-auto"} />
+          <Plus color="#f9fafb" size={30} className={"m-auto"} />
           <p className="-mb-7 pt-5">Create a new album</p>
         </DialogTrigger>
         <DialogContent className="border-zinc-700 bg-zinc-800 text-gray-100">
@@ -138,7 +137,7 @@ export default function AddAlbum({ className }) {
                 onClick={handleUpload}
                 className="rounded border border-zinc-700 bg-zinc-800 p-2 text-zinc-500 transition-colors hover:bg-zinc-700"
               >
-                <UploadSVG color="rgb(113,113,122)" size={25} />
+                <Upload color="rgb(113,113,122)" size={25} />
               </button>
             </form>
           </div>

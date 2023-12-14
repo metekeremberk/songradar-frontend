@@ -8,8 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import PlusSVG from "@/components/svg/PlusSVG";
-import UploadSVG from "@/components/svg/UploadSVG";
+import { Plus, Upload } from "lucide-react";
 
 async function createSong(data) {
   const response = await fetch(
@@ -66,7 +65,7 @@ export default function AddSong({ album, className }) {
       <Dialog>
         <DialogTrigger>
           <div className="-mb-1.5 p-1">
-            <PlusSVG color="#f9fafb" size={30} />
+            <Plus color="#f9fafb" size={30} />
           </div>
         </DialogTrigger>
         <DialogContent className="border-zinc-700 bg-zinc-800 text-gray-100">
@@ -139,7 +138,7 @@ export default function AddSong({ album, className }) {
                 onClick={handleUpload}
                 className="rounded border border-zinc-700 bg-zinc-800 p-2 text-zinc-500 transition-colors hover:bg-zinc-700"
               >
-                <UploadSVG color="rgb(113,113,122)" size={25} />
+                <Upload color="rgb(113,113,122)" size={25} />
               </button>
             </form>
           </div>

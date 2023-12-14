@@ -1,6 +1,4 @@
-import StarSVG from "@/components/svg/StarSVG";
-import MinusSVG from "@/components/svg/MinusSVG";
-
+import { Minus, Star } from "lucide-react";
 import DeleteButton from "../DeleteButton";
 
 export default function SongItem({ song }) {
@@ -12,14 +10,14 @@ export default function SongItem({ song }) {
       <p className="truncate border-l border-zinc-700 px-2">
         {song.performers}
       </p>
-      <StarSVG
+      <Star
         className={
           "absolute right-24 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
         }
         size={25}
         color="#f9fafb"
       />
-      <MinusSVG
+      <Minus
         className={
           "absolute right-14 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
         }
