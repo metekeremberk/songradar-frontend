@@ -9,7 +9,6 @@ export default function SignUp() {
   const username = useRef("");
   const password = useRef("");
   const email = useRef("");
-  const response = useRef({});
 
   const searchParams = useSearchParams();
 

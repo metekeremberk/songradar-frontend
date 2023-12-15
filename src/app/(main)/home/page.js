@@ -2,39 +2,8 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Music } from "lucide-react";
-
-function MusicButton() {
-  return (
-    <Link
-      className="flex h-16 items-center gap-5 rounded bg-zinc-800 transition-colors hover:bg-zinc-700"
-      href={"/"}
-    >
-      <Music
-        color="#064e3b"
-        className="h-full w-auto rounded-l bg-zinc-800 p-1 shadow-equal-md"
-      />
-
-      <p className="truncate text-lg font-light">Album/Song</p>
-    </Link>
-  );
-}
-
-function MusicCard() {
-  return (
-    <Link
-      className="flex w-40 flex-col items-start rounded bg-zinc-800 p-2.5 transition-colors hover:bg-zinc-700"
-      href={"/"}
-    >
-      <Music
-        color="#064e3b"
-        className={"h-auto w-full rounded bg-zinc-800  shadow-equal-md"}
-      />
-      <p className="truncate pt-2 text-lg font-light">Album/Song</p>
-      <p className="truncate text-sm font-light opacity-50">Performers</p>
-    </Link>
-  );
-}
+import MusicButton from "@/components/music/MusicButton";
+import MusicCard from "@/components/music/MusicCard";
 
 export default function Home() {
   const { data: session } = useSession();

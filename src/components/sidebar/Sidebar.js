@@ -1,53 +1,58 @@
+"use client";
+
 import Link from "next/link";
 import {
   Contact2,
-  Disc3,
   Home,
   ListMusic,
+  PlusSquare,
   Search,
   Settings,
   User,
 } from "lucide-react";
-
-const buttons = [
-  {
-    svg: <Home color="#f3f4f6" size={25} />,
-    title: "Home",
-    href: "/home",
-  },
-  {
-    svg: <Search color="#f3f4f6" size={25} />,
-    title: "Search",
-    href: "/search",
-  },
-  {
-    svg: <Disc3 color="#f3f4f6" size={25} />,
-    title: "Albums",
-    href: "/albums",
-  },
-  {
-    svg: <ListMusic color="#f3f4f6" size={25} />,
-    title: "Playlists",
-    href: "/playlists",
-  },
-  {
-    svg: <Settings color="#f3f4f6" size={25} />,
-    title: "Settings",
-    href: "/settings",
-  },
-  {
-    svg: <Contact2 color="#f3f4f6" size={25} />,
-    title: "Friends",
-    href: "/friends",
-  },
-  {
-    svg: <User color="#f3f4f6" size={25} />,
-    title: "Profile",
-    href: "/profile",
-  },
-];
+import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
+  const { data: session } = useSession();
+  const user = session.user;
+
+  const buttons = [
+    {
+      svg: <Home color="#f3f4f6" size={25} />,
+      title: "Home",
+      href: "/home",
+    },
+    {
+      svg: <Search color="#f3f4f6" size={25} />,
+      title: "Search",
+      href: "/search",
+    },
+    {
+      svg: <PlusSquare color="#f3f4f6" size={25} />,
+      title: "Add music",
+      href: "/add",
+    },
+    {
+      svg: <ListMusic color="#f3f4f6" size={25} />,
+      title: "Playlists",
+      href: "/playlists",
+    },
+    {
+      svg: <Settings color="#f3f4f6" size={25} />,
+      title: "Settings",
+      href: "/settings",
+    },
+    {
+      svg: <Contact2 color="#f3f4f6" size={25} />,
+      title: "Friends",
+      href: "/friends",
+    },
+    {
+      svg: <User color="#f3f4f6" size={25} />,
+      title: "Profile",
+      href: "/user/" + user.id,
+    },
+  ];
   return (
     <div className="h-full w-[200px] min-w-[200px] border-r border-zinc-800 bg-zinc-900 shadow-xl">
       <div className="flex h-full w-full flex-col items-start gap-4 py-4">
