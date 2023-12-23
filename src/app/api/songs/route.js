@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req) {
+  const skip = req.nextUrl.searchParams.get("skip");
+  const limit = req.nextUrl.searchParams.get("limit");
+
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/debug/albums?skip=0&limit=100`,
+    `${process.env.NEXT_DB_URL}/debug/songs?skip=${skip}&limit=${limit}`,
     {
       cache: "no-store",
       method: "GET",
@@ -14,8 +17,8 @@ export async function GET() {
   );
 
   if (response.status === 200) {
-    const albums = await response.json();
-    return NextResponse.json(albums);
+    const songs = await response.json();
+    return NextResponse.json(songs);
   }
 
   return NextResponse.json("Validation error.", { status: 422 });
@@ -24,7 +27,7 @@ export async function GET() {
 export async function POST(req) {
   const data = await req.json();
 
-  const response = await fetch(`${process.env.NEXT_DB_URL}/debug/album`, {
+  const response = await fetch(`${process.env.NEXT_DB_URL}/debug/songs`, {
     method: "POST",
     headers: {
       accept: "application/json",
@@ -44,7 +47,7 @@ export async function DELETE(req) {
   const data = await req.json();
 
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/debug/album?album_id=${data.id}`,
+    `${process.env.NEXT_DB_URL}/debug/songs?songs_id=${data.id}`,
     {
       method: "DELETE",
       headers: {

@@ -3,12 +3,13 @@ import DeleteButton from "../DeleteButton";
 
 export default function SongItem({ song }) {
   return (
-    <div className="relative grid w-full grid-cols-4 border-t border-zinc-700 p-4 transition-colors hover:bg-zinc-800">
-      <p className="truncate px-2">{song.title}</p>
-      <p className="truncate border-l border-zinc-700 px-2">{song.year}</p>
-      <p className="truncate border-l border-zinc-700 px-2">{song.genre}</p>
-      <p className="truncate border-l border-zinc-700 px-2">
-        {song.performers}
+    <div className="relative grid w-full grid-cols-4 border-b border-zinc-700 p-4 transition-colors hover:bg-zinc-800">
+      <p className="truncate px-2">{song.name}</p>
+      <p className="truncate border-l border-zinc-700 px-2 opacity-60">
+        {song.year}
+      </p>
+      <p className="truncate border-l border-zinc-700 px-2 opacity-60">
+        {JSON.parse(song.artists.replace(/'/g, '"')).toString()}
       </p>
       <Star
         className={

@@ -21,7 +21,7 @@ export default function AlbumList({ albums }) {
                 key={i}
                 href={"./albums/" + album.id}
               >
-                <p>{album.title}</p>
+                <p>{album.name}</p>
               </Link>
             );
           })}

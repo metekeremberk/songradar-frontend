@@ -22,13 +22,21 @@ async function getUserById(id) {
 export default async function UserProfile({ params }) {
   const user = await getUserById(params.id);
 
+  if (user === undefined) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <p>User not found.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className=" w-full overflow-y-auto">
+    <div className="w-full overflow-y-auto">
       <div className="flex h-[50vh] items-center gap-10 border-b border-zinc-600 px-10 pt-10">
         <div className="z-0 h-60 w-60 rounded-full bg-blue-100"></div>
         <div className="flex flex-col gap-2">
           <p className="text-sm">Profile</p>
-          <p className="text-6xl font-bold">{user.username}</p>
+          <p className="text-6xl font-bold">{user?.username}</p>
         </div>
       </div>
       <div className="space-y-5 bg-zinc-900 bg-opacity-50 p-10">

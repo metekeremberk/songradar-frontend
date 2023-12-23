@@ -5,9 +5,9 @@ import AddSong from "@/components/music/song/AddSong";
 import SongItem from "@/components/music/song/SongItem";
 import { ArrowLeft, Music } from "lucide-react";
 
-async function getAlbums() {
+async function getAlbumById(id) {
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/debug/albums?skip=0&limit=100`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/albums/${id}`,
     {
       cache: "no-store",
       method: "GET",
@@ -18,13 +18,16 @@ async function getAlbums() {
     },
   );
 
-  return await response.json();
+  if (response.status === 200) {
+    const album = await response.json();
+    return album;
+  }
+
+  return null;
 }
 
 export default async function page({ params }) {
-  const albums = await getAlbums();
-
-  const album = albums.find((item) => item.id === Number(params.id));
+  const album = await getAlbumById(params.id);
   return (
     <div className="relative grid h-full w-full grid-cols-4 grid-rows-5 bg-zinc-950 text-gray-50">
       <Link
@@ -52,10 +55,10 @@ export default async function page({ params }) {
         }
       />
       <div className="col-span-3 row-span-2 flex h-full items-end pb-24 text-2xl font-light">
-        {album?.title}
+        {album?.name}
       </div>
       <div className="col-span-4 row-span-3 flex flex-col overflow-y-auto border-t border-zinc-700 p-5">
-        {album?.songs.map((song, i) => {
+        {album.tracks.map((song, i) => {
           return <SongItem song={song} key={i} />;
         })}
       </div>

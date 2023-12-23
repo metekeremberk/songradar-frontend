@@ -1,7 +1,12 @@
 "use client";
 
-import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Search } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const SearchComponent = dynamic(() =>
+  import("@/components/search/SearchContent"),
+);
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -23,20 +28,24 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden">
-      <div className="flex h-14 w-auto items-center border-b border-zinc-800 bg-zinc-900 pl-10">
+    <div className="h-full w-full overflow-y-auto">
+      <div className="sticky top-0 flex h-14 w-auto items-center border-b border-zinc-800 bg-zinc-900 pl-10">
         <Search className="absolute ml-2" size={20} />
+        <input type="email" name="email" style={{ display: "none" }} />
+        <input type="password" name="password" style={{ display: "none" }} />
         <input
-          type="text"
+          type="search"
           name="search"
+          id="search"
           className="min-w-[400px] rounded-2xl border border-zinc-800 bg-zinc-950 py-2 pl-8 pr-4 text-sm text-zinc-200"
           placeholder="Search"
           defaultValue={searchParams.get("query")?.toString()}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange(e);
+          }}
         />
       </div>
-      {searchWord !== undefined && <p>{searchWord}</p>}
-      {searchWord === undefined && <p>Empty</p>}
+      <SearchComponent searchWord={searchWord} />
     </div>
   );
 }

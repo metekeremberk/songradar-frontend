@@ -8,6 +8,7 @@ import MusicCard from "@/components/music/MusicCard";
 export default function Home() {
   const { data: session } = useSession();
   const user = session.user;
+
   return (
     <main className="flex h-full w-full flex-col items-center overflow-y-auto px-8 py-4 text-gray-50">
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">

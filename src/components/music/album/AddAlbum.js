@@ -12,7 +12,7 @@ import { Plus, Upload } from "lucide-react";
 
 async function createAlbum(data) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/albums`,
     {
       cache: "no-store",
       method: "POST",
