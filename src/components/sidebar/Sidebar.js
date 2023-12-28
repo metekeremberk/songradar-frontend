@@ -14,6 +14,7 @@ import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
   const { data: session } = useSession();
+  if (!session) return;
   const user = session.user;
 
   const buttons = [

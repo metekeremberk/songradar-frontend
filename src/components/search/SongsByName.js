@@ -1,28 +1,62 @@
-import { searchSongsByName } from "@/lib/search";
+import { useEffect, useState } from "react";
+import Loading from "../loading/Loading";
 
-export default async function SongsByName({ searchWord }) {
-  const songsByName = await searchSongsByName(searchWord);
-  return (
-    <div className="m-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
-      <p className="pb-1 text-lg">Songs by name</p>
-      {songsByName.map((song, i) => {
-        const name = song.name;
-        const artists = JSON.parse(song.artists.replace(/'/g, '"'));
-        const year = song.year;
-        return (
-          <div
-            key={i}
-            className="grid grid-cols-7 items-center gap-1 border-t border-zinc-800 px-4 py-2 transition-colors hover:bg-zinc-800"
-          >
-            <div className="col-span-3 truncate">{name}</div>
-            <div className="col-span-2 truncate text-sm font-light opacity-60">
-              {artists.toString()}
+export default function SongsByName({ searchWord }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [songsByName, setSongsByName] = useState([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/songs/search_name?name=${searchWord}&skip=0&limit=5`,
+      {
+        cache: "no-store",
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSongsByName(data);
+        setIsLoading(false);
+      });
+  }, [searchWord]);
+
+  if (isLoading) {
+    return <Loading />;
+  } else {
+    return (
+      <div className="m-4 rounded-xl border border-zinc-800 bg-zinc-900 p-4">
+        <p className="pb-1 text-lg">Songs by name</p>
+        {songsByName.map((song, i) => {
+          const name = song.name;
+          let artists = "Artists";
+          try {
+            artists = JSON.parse(music.artists.replace(/'/g, '"'));
+          } catch (error) {
+            console.log(error);
+          }
+          const year = song.year;
+          return (
+            <div
+              key={i}
+              className="grid grid-cols-7 items-center gap-3 border-t border-zinc-800 px-4 py-2 transition-colors hover:bg-zinc-800"
+            >
+              <div className="col-span-3 truncate">{name}</div>
+              <div className="col-span-2 truncate text-sm font-light opacity-60">
+                {artists.toString()}
+              </div>
+              <div className="truncate text-sm font-light opacity-60">
+                {year}
+              </div>
+              <div></div>
             </div>
-            <div className="truncate text-sm font-light opacity-60">{year}</div>
-            <div></div>
-          </div>
-        );
-      })}
-    </div>
-  );
+          );
+        })}
+      </div>
+    );
+  }
 }

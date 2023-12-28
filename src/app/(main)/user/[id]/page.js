@@ -1,7 +1,7 @@
 import PerformerCard from "@/components/music/PerformerCard";
-import MusicButton from "@/components/music/MusicButton";
+import MusicButton from "@/components/music/SongCard";
 import Link from "next/link";
-import MusicCard from "@/components/music/MusicCard";
+import MusicCard from "@/components/music/AlbumCard";
 
 async function getUserById(id) {
   const response = await fetch(`${process.env.NEXT_DB_URL}/debug/users/${id}`, {

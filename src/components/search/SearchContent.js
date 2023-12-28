@@ -1,10 +1,19 @@
-import SongsByName from "./SongsByName";
-import SongsByArtist from "./SongsByArtist";
-import AlbumsByName from "./AlbumsByName";
-import AlbumsByArtist from "./AlbumsByArtist";
+import dynamic from "next/dynamic";
+
+const SongsByName = dynamic(() => import("@/components/search/SongsByName"));
+
+const SongsByArtist = dynamic(() =>
+  import("@/components/search/SongsByArtist"),
+);
+
+const AlbumsByName = dynamic(() => import("@/components/search/AlbumsByName"));
+
+const AlbumsByArtist = dynamic(() =>
+  import("@/components/search/AlbumsByArtist"),
+);
 
 export default async function SearchContent({ searchWord }) {
-  if (searchWord !== undefined) {
+  if (searchWord !== "") {
     return (
       <div className="h-full p-6">
         <div className="border-b border-zinc-800 pb-2 pl-2 text-2xl font-semibold">

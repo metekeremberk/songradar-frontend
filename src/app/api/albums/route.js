@@ -5,7 +5,7 @@ export async function GET(req) {
   const limit = req.nextUrl.searchParams.get("limit");
 
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/albums?skip=${skip}&limit=${limit}`,
+    `${process.env.NEXT_DB_URL}/albums/?skip=${skip}&limit=${limit}`,
     {
       cache: "no-store",
       method: "GET",

@@ -32,7 +32,7 @@ export default async function page({ params }) {
     <div className="relative grid h-full w-full grid-cols-4 grid-rows-5 bg-zinc-950 text-gray-50">
       <Link
         className="absolute left-5 top-5 rounded-full p-2 transition-colors hover:bg-zinc-800"
-        href={"./"}
+        href={"/home"}
       >
         <ArrowLeft color="#f9fafb" size={30} />
       </Link>

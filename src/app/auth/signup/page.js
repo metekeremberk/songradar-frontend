@@ -23,8 +23,6 @@ export default function SignUp() {
 
     const res = await signUp(newUser);
 
-    console.log(res);
-
     if (res.status === 200)
       redirect("./signin?callbackUrl=" + searchParams.get("callbackUrl"));
   }
