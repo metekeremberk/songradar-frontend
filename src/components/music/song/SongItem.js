@@ -1,38 +1,35 @@
 import { Minus, Star } from "lucide-react";
 import DeleteButton from "../DeleteButton";
 
-export default function SongItem({ song }) {
+export default function SongItem({ song, gradient }) {
   return (
-    <div className="relative grid w-full grid-cols-4 border-b border-zinc-700 p-4 transition-colors hover:bg-zinc-800">
-      <p className="truncate px-2">{song.name}</p>
-      <p className="truncate border-l border-zinc-700 px-2 opacity-60">
+    <div className="relative my-1 flex w-full items-center gap-2 rounded border-zinc-700 px-2 transition-colors hover:bg-zinc-800">
+      <div className={"aspect-square w-6 " + gradient} />
+      <p className="grow truncate px-2 py-2">{song.name}</p>
+      <p className="basis-32 truncate border-zinc-700 px-2 py-2 opacity-60">
         {song.year}
       </p>
-      <p className="truncate border-l border-zinc-700 px-2 opacity-60">
+      <p className="basis-60 truncate border-zinc-700 px-2 py-2 opacity-60">
         {JSON.parse(song.artists.replace(/'/g, '"')).toString()}
       </p>
-      <Star
-        className={
-          "absolute right-24 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
-        }
-        size={25}
-        color="#f9fafb"
-      />
-      <Minus
-        className={
-          "absolute right-14 mt-4 cursor-pointer rounded-full hover:bg-zinc-700"
-        }
-        size={25}
-        color="#f9fafb"
-      />
-      <DeleteButton
-        className={
-          "absolute right-3 mt-3 cursor-pointer rounded-full hover:bg-zinc-700"
-        }
-        item={song}
-        name={"song"}
-        size={25}
-      />
+      <div className="flex items-center gap-2">
+        <Star
+          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
+          size={25}
+          color="#f9fafb"
+        />
+        <Minus
+          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
+          size={25}
+          color="#f9fafb"
+        />
+        <DeleteButton
+          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
+          item={song}
+          name={"song"}
+          size={25}
+        />
+      </div>
     </div>
   );
 }

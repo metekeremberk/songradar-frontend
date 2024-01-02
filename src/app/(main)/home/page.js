@@ -7,6 +7,7 @@ import Albums from "@/components/home/Albums";
 import Artists from "@/components/home/Artists";
 import Playlists from "@/components/home/Playlists";
 import SongCard from "@/components/music/SongCard";
+import GradientInfo from "@/components/home/GradientInfo";
 
 function getRandomNumber(min, max) {
   const randomFraction = Math.random();
@@ -21,7 +22,8 @@ export default function Home() {
   const user = session.user;
 
   return (
-    <main className="flex h-full w-full flex-col items-center overflow-y-auto px-8 py-4 text-gray-50">
+    <main className="flex h-full w-full flex-col items-center overflow-hidden overflow-y-auto px-8 py-4 text-gray-50">
+      <GradientInfo />
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
         <div className="flex justify-between">
           <p className="text-xl">Recommendations for {user.name}</p>
@@ -44,9 +46,6 @@ export default function Home() {
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
           <p className="text-xl">Songs</p>
-          <Link href={"/songs"} className="text-gray-400 hover:underline">
-            See all
-          </Link>
         </div>
         <Songs skip={getRandomNumber(1, 1000000)} />
       </div>
@@ -71,9 +70,6 @@ export default function Home() {
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
           <p className="text-xl">Artists</p>
-          <Link href={"/artists"} className="text-gray-400 hover:underline">
-            See all
-          </Link>
         </div>
         <Artists skip={getRandomNumber(1, 110000)} />
       </div>

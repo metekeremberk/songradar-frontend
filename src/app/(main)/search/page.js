@@ -12,7 +12,7 @@ export default function SearchPage() {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="h-full w-full overflow-y-auto">
+    <div className="relative h-full w-full overflow-y-auto">
       <div className="sticky top-0 flex h-14 w-auto items-center border-b border-zinc-800 bg-zinc-900 pl-10">
         <Search className="absolute ml-2" size={20} />
         <input type="email" name="email" style={{ display: "none" }} />

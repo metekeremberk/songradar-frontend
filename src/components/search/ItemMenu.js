@@ -10,8 +10,17 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import Link from "next/link";
 
-export default function ItemMenu() {
+export default function ItemMenu({ track }) {
+  let albumId;
+
+  if (track.album_id !== undefined) {
+    albumId = track.album_id;
+  } else {
+    albumId = track.id;
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -40,9 +49,11 @@ export default function ItemMenu() {
           <User className="opacity-60" size={20} />
           <p>Go to artist</p>
         </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
-          <Disc3 className="opacity-60" size={20} />
-          <p>Go to album</p>
+        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+          <Link href={"/albums/" + albumId} className="flex gap-2">
+            <Disc3 className="opacity-60" size={20} />
+            <p>Go to album</p>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

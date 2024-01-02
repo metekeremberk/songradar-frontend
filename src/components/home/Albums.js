@@ -31,7 +31,7 @@ export default function Albums({ skip = 0 }) {
     return <Loading />;
   } else {
     return (
-      <div className="flex justify-between gap-3">
+      <div className="flex justify-between gap-3 overflow-auto">
         {albums.map((album, i) => {
           return (
             <AlbumCard

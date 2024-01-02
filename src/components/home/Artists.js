@@ -31,7 +31,7 @@ export default function Artists({ skip = 0 }) {
     return <Loading />;
   } else {
     return (
-      <div className="flex justify-between gap-3">
+      <div className="flex justify-between gap-3 overflow-auto">
         {artists.map((artist, i) => {
           return (
             <ArtistCard
