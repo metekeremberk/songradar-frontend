@@ -12,17 +12,29 @@ const AlbumsByArtist = dynamic(() =>
   import("@/components/search/AlbumsByArtist"),
 );
 
-export default async function SearchContent({ searchWord }) {
+export default function SearchContent({ searchWord }) {
   if (searchWord !== "") {
     return (
-      <div className="h-full p-6">
+      <div className="h-full bg-zinc-950/70 p-6">
         <div className="border-b border-zinc-800 pb-2 pl-2 text-2xl font-semibold">
           Search results for "{searchWord}"
         </div>
-        <SongsByName searchWord={searchWord} />
-        <SongsByArtist searchWord={searchWord} />
-        <AlbumsByName searchWord={searchWord} />
-        <AlbumsByArtist searchWord={searchWord} />
+        <div className="space-y-2">
+          <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
+            Songs
+          </p>
+          <div className="flex">
+            <SongsByName searchWord={searchWord} />
+            <SongsByArtist searchWord={searchWord} />
+          </div>
+          <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
+            Albums
+          </p>
+          <div className="flex">
+            <AlbumsByName searchWord={searchWord} />
+            <AlbumsByArtist searchWord={searchWord} />
+          </div>
+        </div>
       </div>
     );
   }

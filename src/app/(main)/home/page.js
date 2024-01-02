@@ -57,7 +57,7 @@ export default function Home() {
             See all
           </Link>
         </div>
-        <Playlists skip={getRandomNumber(1, 150000)} />
+        <Playlists skip={getRandomNumber(1, 110000)} />
       </div>
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
@@ -66,7 +66,7 @@ export default function Home() {
             See all
           </Link>
         </div>
-        <Albums skip={getRandomNumber(1, 150000)} />
+        <Albums skip={getRandomNumber(1, 110000)} />
       </div>
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
@@ -75,7 +75,7 @@ export default function Home() {
             See all
           </Link>
         </div>
-        <Artists skip={getRandomNumber(1, 150000)} />
+        <Artists skip={getRandomNumber(1, 110000)} />
       </div>
     </main>
   );
