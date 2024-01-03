@@ -1,4 +1,11 @@
-import { Disc3, Heart, ListMusic, MoreHorizontal, User } from "lucide-react";
+import {
+  Ban,
+  Disc3,
+  Heart,
+  ListMusic,
+  MoreHorizontal,
+  User,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,6 +51,11 @@ export default function ItemMenu({ track }) {
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
+        <DropdownMenuSeparator className=" bg-zinc-800 " />
+        <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
+          <Ban className="opacity-60" size={20} />
+          <p>Do not recommend</p>
+        </DropdownMenuItem>
         <DropdownMenuSeparator className=" bg-zinc-800 " />
         <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
           <User className="opacity-60" size={20} />

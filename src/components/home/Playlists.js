@@ -37,7 +37,6 @@ export default function Playlists({ skip = 0 }) {
     return (
       <div className="flex justify-between gap-3 overflow-auto">
         {chunkedPlaylists.map((chunk, i) => {
-          console.log(chunk);
           return <PlaylistsCard key={i} music={chunk} />;
         })}
       </div>

@@ -22,7 +22,7 @@ export default function Home() {
   const user = session.user;
 
   return (
-    <main className="flex h-full w-full flex-col items-center overflow-hidden overflow-y-auto px-8 py-4 text-gray-50">
+    <div className="flex h-full w-full flex-col items-center overflow-hidden overflow-y-auto px-8 py-4 text-gray-50">
       <GradientInfo />
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
         <div className="flex justify-between">
@@ -73,6 +73,6 @@ export default function Home() {
         </div>
         <Artists skip={getRandomNumber(1, 110000)} />
       </div>
-    </main>
+    </div>
   );
 }

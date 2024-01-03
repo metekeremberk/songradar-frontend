@@ -32,7 +32,7 @@ export default function page({ params }) {
         const date = new Date(data.duration_ms);
         const minutes = String(date.getMinutes());
         const seconds = String(date.getSeconds());
-        setTime(minutes + ":" + seconds);
+        setTime(minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
         setIsLoading(false);
       });
   }, []);

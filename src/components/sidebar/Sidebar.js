@@ -1,15 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  Contact2,
-  Home,
-  ListMusic,
-  PlusSquare,
-  Search,
-  Settings,
-  User,
-} from "lucide-react";
+import { Home, ListMusic, PlusSquare, Search, User } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
@@ -39,23 +31,14 @@ export default function Sidebar() {
       href: "/playlists",
     },
     {
-      svg: <Settings color="#f3f4f6" size={25} />,
-      title: "Settings",
-      href: "/settings",
-    },
-    {
-      svg: <Contact2 color="#f3f4f6" size={25} />,
-      title: "Friends",
-      href: "/friends",
-    },
-    {
       svg: <User color="#f3f4f6" size={25} />,
       title: "Profile",
       href: "/user/" + user.id,
     },
   ];
+
   return (
-    <div className="h-full w-[200px] min-w-[200px] border-r border-zinc-800 bg-zinc-900 shadow-xl">
+    <div className="h-full w-[200px] min-w-[200px] basis-[200px] border-r border-zinc-800 bg-zinc-900 shadow-xl">
       <div className="flex h-full w-full flex-col items-start gap-4 py-4">
         <div className="h-10 w-full cursor-default border-b border-zinc-800 px-4 opacity-80">
           SongRadar
