@@ -10,7 +10,7 @@ export default function Albums({ skip = 0 }) {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/albums?skip=${skip}&limit=8`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/albums/recent?skip=0&limit=8`,
       {
         cache: "no-store",
         method: "GET",

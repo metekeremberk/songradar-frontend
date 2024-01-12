@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import Loading from "../loading/Loading";
 import PlaylistsCard from "../music/PlaylistCard";
+import { useSession } from "next-auth/react";
 
 export default function Playlists({ skip = 0 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [playlists, setPlaylists] = useState([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/songs?skip=${skip}&limit=32`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
       {
         cache: "no-store",
         method: "GET",
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `${session.accessToken}`,
         },
       },
     )
@@ -29,15 +32,10 @@ export default function Playlists({ skip = 0 }) {
   if (isLoading) {
     return <Loading />;
   } else {
-    const chunkSize = 4;
-    const chunkedPlaylists = [];
-    for (let i = 0; i < playlists.length; i += chunkSize) {
-      chunkedPlaylists.push(playlists.slice(i, i + chunkSize));
-    }
     return (
-      <div className="flex justify-between gap-3 overflow-auto">
-        {chunkedPlaylists.map((chunk, i) => {
-          return <PlaylistsCard key={i} music={chunk} />;
+      <div className="flex justify-start gap-3 overflow-auto">
+        {playlists.map((playlist, i) => {
+          return <PlaylistsCard key={i} music={playlist} />;
         })}
       </div>
     );

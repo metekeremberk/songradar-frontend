@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import ItemMenu from "./ItemMenu";
 
-export default async function AlbumsByArtist({ searchWord }) {
+export default function AlbumsByArtist({ searchWord }) {
   const [isLoading, setIsLoading] = useState(false);
   const [albumsByArtist, setAlbumsByArtist] = useState([]);
 

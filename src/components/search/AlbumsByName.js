@@ -3,7 +3,7 @@ import Loading from "../loading/Loading";
 import Link from "next/link";
 import ItemMenu from "./ItemMenu";
 
-export default async function AlbumsByName({ searchWord }) {
+export default function AlbumsByName({ searchWord }) {
   const [isLoading, setIsLoading] = useState(false);
   const [albumsByName, setAlbumsByName] = useState([]);
 

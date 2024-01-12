@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import ItemMenu from "./ItemMenu";
 
-export default async function SongsByArtist({ searchWord }) {
+export default function SongsByArtist({ searchWord }) {
   const [isLoading, setIsLoading] = useState(false);
   const [songsByArtist, setSongsByArtist] = useState([]);
 

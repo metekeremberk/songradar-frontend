@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req, context) {
+export async function DELETE({ params }) {
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/albums/${context.params.id}`,
+    `${process.env.NEXT_DB_URL}/album/${params.id}`,
     {
-      cache: "no-store",
-      method: "GET",
+      method: "DELETE",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
@@ -14,9 +13,8 @@ export async function GET(req, context) {
   );
 
   if (response.status === 200) {
-    const albums = await response.json();
-    return NextResponse.json(albums);
+    return NextResponse.json("Successful.", { status: 200 });
   }
 
-  return NextResponse.json("Validation error.", { status: 422 });
+  return NextResponse.json("Validation Error", { status: 422 });
 }

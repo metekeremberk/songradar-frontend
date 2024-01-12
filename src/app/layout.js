@@ -18,13 +18,17 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession(options);
   return (
     <html lang="en">
-      <body
-        className={
-          "flex h-screen w-full overflow-hidden bg-gradient-to-tl from-zinc-950 to-zinc-700 text-gray-50 " +
-          poppins.className
-        }
-      >
-        <AuthProvider session={session}>{children}</AuthProvider>
+      <body>
+        <AuthProvider session={session}>
+          <main
+            className={
+              "flex h-screen w-full overflow-hidden bg-gradient-to-tl from-zinc-950 to-zinc-700 text-gray-50 " +
+              poppins.className
+            }
+          >
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -45,6 +45,7 @@ export const options = {
             name: user.username,
             email: user.email,
             id: user.id,
+            accessToken: token.access_token,
           };
           return sessionUser;
         }
@@ -63,14 +64,16 @@ export const options = {
   },
   callbacks: {
     session: async ({ session, token }) => {
-      if (session?.user) {
+      if (token) {
         session.user.id = token.uid;
+        session.accessToken = token.accessToken;
       }
       return session;
     },
     jwt: async ({ user, token }) => {
       if (user) {
         token.uid = user.id;
+        token.accessToken = user.accessToken;
       }
       return token;
     },
