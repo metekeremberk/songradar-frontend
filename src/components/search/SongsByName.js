@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import ItemMenu from "./ItemMenu";
 
-export default function SongsByName({ searchWord }) {
+export default function SongsByName({ searchWord, playlists }) {
   const [isLoading, setIsLoading] = useState(false);
   const [songsByName, setSongsByName] = useState([]);
 
@@ -53,7 +53,7 @@ export default function SongsByName({ searchWord }) {
                 {year}
               </div>
               <div className="absolute right-8 top-2">
-                <ItemMenu track={song} />
+                <ItemMenu track={song} playlists={playlists} />
               </div>
             </div>
           );

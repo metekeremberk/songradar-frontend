@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req, context) {
+export async function GET(req, { params }) {
   const response = await fetch(
-    `${process.env.NEXT_DB_URL}/albums/${context.params.id}`,
+    `${process.env.NEXT_DB_URL}/albums/find/${params.id}`,
     {
       cache: "no-store",
       method: "GET",

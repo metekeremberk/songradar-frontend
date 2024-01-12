@@ -18,13 +18,73 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function EditMenu({ id, token }) {
+  const [newName, setNewName] = useState("");
+  const router = useRouter();
   const playlistId = id;
-  return <DialogContent></DialogContent>;
+
+  function handleNameChange() {
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/${playlistId}?new_name=${newName}`,
+      {
+        cache: "no-store",
+        method: "PUT",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+      },
+    ).then((response) => {
+      if (response.status === 200) {
+        router.refresh();
+      }
+    });
+  }
+
+  return (
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>Edit profile</DialogTitle>
+        <DialogDescription>
+          Make changes to your profile here. Click save when you're done.
+        </DialogDescription>
+      </DialogHeader>
+      <div className="grid gap-4 py-4">
+        <div className="grid grid-cols-4 items-center gap-4">
+          <label htmlFor="name" className="text-right">
+            Playlist name
+          </label>
+          <input
+            id="name"
+            placeholder="dummy name"
+            className="col-span-3"
+            onChange={(e) => {
+              setNewName(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <DialogFooter>
+        <button type="submit" onClick={handleNameChange}>
+          Save changes
+        </button>
+      </DialogFooter>
+    </DialogContent>
+  );
 }
 
 function DeleteMenu({ id, token }) {
@@ -96,7 +156,7 @@ export default function MoreMenu({ id }) {
             </DropdownMenuItem>
           </DropdownMenuContent>
           <DeleteMenu id={playlistId} token={session.accessToken} />
-          <EditMenu id={playlistId} />
+          <EditMenu id={playlistId} token={session.accessToken} />
         </DropdownMenu>
       </AlertDialog>
     </Dialog>

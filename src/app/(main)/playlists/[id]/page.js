@@ -1,17 +1,15 @@
 "use client";
 
 import Loading from "@/components/loading/Loading";
-import SongItem from "@/components/music/song/SongItem";
 import MoreMenu from "@/components/playlists/MoreMenu";
+import PlaylistItem from "@/components/playlists/PlaylistItem";
 import { getColorPairing } from "@/lib/colorPair";
 import { Dot } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function PlaylistPage({ params }) {
   const [isLoading, setIsLoading] = useState(false);
   const [playlist, setPlaylist] = useState({});
-  const router = useRouter();
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,8 +23,7 @@ export default function PlaylistPage({ params }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data )
-        setPlaylist(data);
+        if (data) setPlaylist(data);
         setIsLoading(false);
       });
   }, []);
@@ -59,7 +56,11 @@ export default function PlaylistPage({ params }) {
         <div className="col-span-4 row-span-3 flex flex-col overflow-y-auto border-t border-zinc-700 p-5">
           {playlist?.songs?.map((song, i) => {
             return (
-              <SongItem song={song} key={i} gradient={getColorPairing(song)} />
+              <PlaylistItem
+                song={song}
+                key={i}
+                gradient={getColorPairing(song)}
+              />
             );
           })}
         </div>

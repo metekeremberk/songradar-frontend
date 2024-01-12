@@ -3,7 +3,7 @@ import Loading from "../loading/Loading";
 import Link from "next/link";
 import ItemMenu from "./ItemMenu";
 
-export default function AlbumsByName({ searchWord }) {
+export default function AlbumsByName({ searchWord, playlists }) {
   const [isLoading, setIsLoading] = useState(false);
   const [albumsByName, setAlbumsByName] = useState([]);
 
@@ -55,7 +55,7 @@ export default function AlbumsByName({ searchWord }) {
                 {year}
               </div>
               <div className="absolute right-8 top-2">
-                <ItemMenu track={album} />
+                <ItemMenu track={album} playlists={playlists} />
               </div>
             </Link>
           );

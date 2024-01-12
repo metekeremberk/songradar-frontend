@@ -17,7 +17,7 @@ export default function page({ params }) {
   const router = useRouter();
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/${params.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/find/${params.id}`, {
       cache: "no-store",
       method: "GET",
       headers: {
@@ -41,7 +41,7 @@ export default function page({ params }) {
     return <Loading />;
   } else {
     return (
-      <div className=" grid h-full w-full grid-cols-1 grid-rows-5 bg-zinc-950 text-gray-50">
+      <div className=" grid h-full w-full grid-cols-1 grid-rows-5 text-gray-50">
         <div className="row-span-2 flex w-full justify-between gap-4 p-4">
           <div>
             <button

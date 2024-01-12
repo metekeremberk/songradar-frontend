@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 
-export async function PUT({ params }) {
+export async function PUT(req, { params }) {
   const response = await fetch(
     `${process.env.NEXT_DB_URL}/playlists/${params.id}/${params.song_id}`,
     {
-      method: "POST",
+      method: "PUT",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${req.headers.get("Authorization")}`,
       },
     },
   );
@@ -19,14 +20,15 @@ export async function PUT({ params }) {
   return NextResponse.json("Validation Error", { status: 422 });
 }
 
-export async function DELETE({ params }) {
+export async function DELETE(req, { params }) {
   const response = await fetch(
     `${process.env.NEXT_DB_URL}/playlists/${params.id}/${params.song_id}`,
     {
-      method: "POST",
+      method: "DELETE",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${req.headers.get("Authorization")}`,
       },
     },
   );

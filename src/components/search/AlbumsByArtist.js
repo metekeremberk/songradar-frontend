@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Loading from "../loading/Loading";
 import ItemMenu from "./ItemMenu";
 
-export default function AlbumsByArtist({ searchWord }) {
+export default function AlbumsByArtist({ searchWord, playlists }) {
   const [isLoading, setIsLoading] = useState(false);
   const [albumsByArtist, setAlbumsByArtist] = useState([]);
 
@@ -55,7 +55,7 @@ export default function AlbumsByArtist({ searchWord }) {
                 {year}
               </div>
               <div className="absolute right-8 top-2">
-                <ItemMenu track={album} />
+                <ItemMenu track={album} playlists={playlists} />
               </div>
             </Link>
           );

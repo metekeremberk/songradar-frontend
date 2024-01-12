@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function ItemMenu({ track, playlists }) {
+export default function PlaylistItemMoreMenu({ track, playlists }) {
   const { data: session } = useSession();
 
   let albumId;
@@ -26,7 +26,7 @@ export default function ItemMenu({ track, playlists }) {
     albumId = track.id;
   }
 
-  function handleClick(playlistId) {
+  function handleAddToPlaylist(playlistId) {
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/${playlistId}/${track.id}`,
       {
@@ -65,7 +65,7 @@ export default function ItemMenu({ track, playlists }) {
                     key={i}
                   >
                     <button
-                      onClick={() => handleClick(playlist.id)}
+                      onClick={() => handleAddToPlaylist(playlist.id)}
                       className="flex h-full w-full"
                     >
                       {playlist.name}
@@ -79,7 +79,7 @@ export default function ItemMenu({ track, playlists }) {
         <DropdownMenuSeparator className=" bg-zinc-800 " />
         <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
           <Ban className="opacity-60" size={20} />
-          <p>Do not recommend</p>
+          <p>Remove from playlist</p>
         </DropdownMenuItem>
         <DropdownMenuSeparator className=" bg-zinc-800 " />
         <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
