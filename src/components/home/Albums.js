@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import Loading from "../loading/Loading";
 import AlbumCard from "../music/AlbumCard";
-import { getColorPairing } from "@/lib/colorPair";
 
-export default function Albums({ skip = 0 }) {
+export default function Albums() {
   const [isLoading, setIsLoading] = useState(false);
   const [albums, setAlbums] = useState([]);
 
@@ -33,13 +32,7 @@ export default function Albums({ skip = 0 }) {
     return (
       <div className="flex justify-between gap-3 overflow-auto">
         {albums.map((album, i) => {
-          return (
-            <AlbumCard
-              key={i}
-              music={album}
-              gradient={getColorPairing(album)}
-            />
-          );
+          return <AlbumCard key={i} music={album} />;
         })}
       </div>
     );

@@ -8,11 +8,13 @@ import { useState, useEffect } from "react";
 import Loading from "@/components/loading/Loading";
 import { useRouter } from "next/navigation";
 import { getColorPairing } from "@/lib/colorPair";
+import Image from "next/image";
 
 export default function page({ params }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [album, setAlbum] = useState([]);
-  const [artists, setArtists] = useState("");
+  const [albumCoverUrl, setAlbumCoverUrl] = useState("");
+  const [artists, setArtists] = useState("Artists");
   const [time, setTime] = useState(null);
   const router = useRouter();
 
@@ -28,7 +30,12 @@ export default function page({ params }) {
       .then((response) => response.json())
       .then((data) => {
         setAlbum(data);
-        setArtists(JSON.parse(data.artists.replace(/'/g, '"')).toString());
+        getImageUrl(data.id);
+        try {
+          setArtists(JSON.parse(music.artists.replace(/'/g, '"')));
+        } catch (error) {
+          console.log(error);
+        }
         const date = new Date(data.duration_ms);
         const minutes = String(date.getMinutes());
         const seconds = String(date.getSeconds());
@@ -36,6 +43,21 @@ export default function page({ params }) {
         setIsLoading(false);
       });
   }, []);
+
+  function getImageUrl(id) {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/cover/${id}`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAlbumCoverUrl(data);
+      });
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -54,12 +76,12 @@ export default function page({ params }) {
             </button>
           </div>
           <div className="flex grow justify-start gap-4">
-            <div
-              color="#064e3b"
-              className={
-                "row-span-2 m-auto aspect-square w-48 flex-none rounded p-1" +
-                getColorPairing(album)
-              }
+            <Image
+              src={`${albumCoverUrl}`}
+              className="row-span-2 m-auto flex-none rounded p-1"
+              width={192}
+              height={192}
+              alt="album_cover"
             />
             <div className="col-span-3 row-span-2 flex h-full grow flex-col items-start justify-center pt-20  font-light">
               <p className="text-2xl">{album?.name}</p>
