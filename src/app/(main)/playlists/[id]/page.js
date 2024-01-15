@@ -5,11 +5,14 @@ import MoreMenu from "@/components/playlists/MoreMenu";
 import PlaylistItem from "@/components/playlists/PlaylistItem";
 import { getColorPairing } from "@/lib/colorPair";
 import { Dot } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 export default function PlaylistPage({ params }) {
+  const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [playlist, setPlaylist] = useState({});
+  const [allPlaylists, setAllPlaylists] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -24,6 +27,24 @@ export default function PlaylistPage({ params }) {
       .then((response) => response.json())
       .then((data) => {
         if (data) setPlaylist(data);
+        setIsLoading(false);
+      });
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
+      {
+        cache: "no-store",
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${session.accessToken}`,
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) setAllPlaylists(data);
         setIsLoading(false);
       });
   }, []);
@@ -60,6 +81,8 @@ export default function PlaylistPage({ params }) {
                 song={song}
                 key={i}
                 gradient={getColorPairing(song)}
+                allPlaylists={allPlaylists}
+                playlist={playlist}
               />
             );
           })}

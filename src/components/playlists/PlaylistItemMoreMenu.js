@@ -15,7 +15,11 @@ import {
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function PlaylistItemMoreMenu({ track, playlists }) {
+export default function PlaylistItemMoreMenu({
+  track,
+  allPlaylists,
+  playlist,
+}) {
   const { data: session } = useSession();
 
   let albumId;
@@ -32,6 +36,21 @@ export default function PlaylistItemMoreMenu({ track, playlists }) {
       {
         cache: "no-store",
         method: "PUT",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${session.accessToken}`,
+        },
+      },
+    );
+  }
+
+  function handleDeletePlaylist(songId) {
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/${playlist.id}/${songId}`,
+      {
+        cache: "no-store",
+        method: "DELETE",
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
@@ -58,7 +77,7 @@ export default function PlaylistItemMoreMenu({ track, playlists }) {
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent className="border-zinc-800 bg-zinc-950/95 text-gray-50">
-              {playlists?.map((playlist, i) => {
+              {allPlaylists?.map((playlist, i) => {
                 return (
                   <DropdownMenuItem
                     className="focus:bg-zinc-800 focus:text-gray-50"
@@ -77,9 +96,14 @@ export default function PlaylistItemMoreMenu({ track, playlists }) {
           </DropdownMenuPortal>
         </DropdownMenuSub>
         <DropdownMenuSeparator className=" bg-zinc-800 " />
-        <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
-          <Ban className="opacity-60" size={20} />
-          <p>Remove from playlist</p>
+        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+          <button
+            onClick={() => handleDeletePlaylist(track.id)}
+            className="flex gap-2"
+          >
+            <Ban className="opacity-60" size={20} />
+            <p>Remove from playlist</p>
+          </button>
         </DropdownMenuItem>
         <DropdownMenuSeparator className=" bg-zinc-800 " />
         <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
