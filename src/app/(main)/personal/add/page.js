@@ -1,15 +1,21 @@
 "use client";
 
 import { ArrowLeft, Upload } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
 
-async function createAlbum(data) {
+async function createAlbum(data, session) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/music/albums`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/albums`,
     {
       cache: "no-store",
       method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `${session.accessToken}`,
+      },
       body: JSON.stringify(data),
     },
   );
@@ -17,20 +23,9 @@ async function createAlbum(data) {
   return response;
 }
 
-async function onAction(formData) {
-  const data = {
-    title: formData.get("title"),
-    year: parseInt(formData.get("year")),
-    genre: formData.get("genre"),
-    performers: formData.get("performers"),
-  };
-
-  const res = await createAlbum(data);
-  setResponse(res);
-}
-
 export default function AddAlbumPage() {
   const [file, setFile] = useState(undefined);
+  const { data: session } = useSession();
 
   async function handleUpload(e) {
     e.preventDefault();
@@ -44,19 +39,46 @@ export default function AddAlbumPage() {
         const element = content[i];
 
         if (!element.hasOwnProperty("album_id")) {
+          const date = formData.get("year").split("-");
+          const year = parseInt(date[0]);
+          const month = parseInt(date[1]);
+          const day = parseInt(date[2]);
+
+          const artists = formData.get("artists").split(",");
+
           const data = {
-            title: element.title,
-            year: element.year,
-            genre: element.genre,
-            performers: element.performers,
+            name: formData.get("name"),
+            artists: JSON.stringify(artists),
+            year: year,
+            month: month,
+            day: day,
           };
 
-          const res = await createAlbum(data);
+          const res = await createAlbum(data, session);
         }
       }
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async function onAction(formData) {
+    const date = formData.get("year").split("-");
+    const year = parseInt(date[0]);
+    const month = parseInt(date[1]);
+    const day = parseInt(date[2]);
+
+    const artists = formData.get("artists").split(",");
+
+    const data = {
+      name: formData.get("name"),
+      artists: JSON.stringify(artists),
+      year: year,
+      month: month,
+      day: day,
+    };
+
+    const res = await createAlbum(data, session);
   }
 
   return (
@@ -112,13 +134,13 @@ export default function AddAlbumPage() {
             >
               <input
                 type="text"
-                name="title"
-                placeholder="Title"
+                name="name"
+                placeholder="Name"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
               />
               <input
-                type="number"
+                type="date"
                 name="year"
                 placeholder="Year"
                 required
@@ -126,15 +148,8 @@ export default function AddAlbumPage() {
               />
               <input
                 type="text"
-                name="genre"
-                placeholder="Genre"
-                required
-                className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-              />
-              <input
-                type="text"
-                name="performers"
-                placeholder="Performers"
+                name="artists"
+                placeholder="Artists"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
               />

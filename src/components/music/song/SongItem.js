@@ -5,7 +5,7 @@ import DeleteButton from "../DeleteButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function SongItem({ song, gradient }) {
+export default function SongItem({ song }) {
   const [songCoverUrl, setSongCoverUrl] = useState("");
 
   let artists = "Artists";
@@ -26,13 +26,19 @@ export default function SongItem({ song, gradient }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setSongCoverUrl(data);
+        if (data === "Not found") {
+          setSongCoverUrl(null);
+        } else {
+          setSongCoverUrl(data);
+        }
       });
   }, []);
 
   return (
     <div className="relative my-1 flex w-full items-center gap-2 rounded border-zinc-700 px-2 py-1 transition-colors hover:bg-zinc-800">
-      <Image alt="song_cover" width={30} height={30} src={songCoverUrl} />
+      {songCoverUrl && (
+        <Image alt="song_cover" width={30} height={30} src={songCoverUrl} />
+      )}
       <p className="grow truncate px-2 py-2">{song.name}</p>
       <p className="basis-32 truncate px-2 py-2 opacity-60">{song.year}</p>
       <p className="basis-60 truncate px-2 py-2 opacity-60">{artists}</p>

@@ -27,7 +27,11 @@ export default function AlbumCard({ music }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAlbumCoverUrl(data);
+        if (data === "Not found") {
+          setAlbumCoverUrl(null);
+        } else {
+          setAlbumCoverUrl(data);
+        }
         setIsLoading(false);
       });
   }, []);
@@ -41,12 +45,14 @@ export default function AlbumCard({ music }) {
         href={"/albums/" + music.id}
       >
         <div className={"mb-3 aspect-square h-auto w-full rounded "}>
-          <Image
-            src={albumCoverUrl}
-            alt="album_cover"
-            width={300}
-            height={300}
-          />
+          {albumCoverUrl && (
+            <Image
+              src={albumCoverUrl}
+              alt="album_cover"
+              width={300}
+              height={300}
+            />
+          )}
         </div>
         <p className="line-clamp-1 text-lg font-light">{music.name}</p>
         <p className="line-clamp-1 opacity-60">{artists.toString()}</p>

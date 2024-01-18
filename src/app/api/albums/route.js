@@ -27,11 +27,12 @@ export async function GET(req) {
 export async function POST(req) {
   const data = await req.json();
 
-  const response = await fetch(`${process.env.NEXT_DB_URL}/album/`, {
+  const response = await fetch(`${process.env.NEXT_DB_URL}/albums/`, {
     method: "POST",
     headers: {
       accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${req.headers.get("Authorization")}`,
     },
     body: JSON.stringify(data),
   });

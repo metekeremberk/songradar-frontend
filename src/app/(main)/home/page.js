@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import Songs from "@/components/home/Songs";
 import Albums from "@/components/home/Albums";
 import Playlists from "@/components/home/Playlists";
-import SongCard from "@/components/music/SongCard";
 
 function RecommendedSong({
   music = { name: "Song/Album", artists: "['Artists']" },

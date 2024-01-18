@@ -9,16 +9,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, Upload } from "lucide-react";
+import { useSession } from "next-auth/react";
 
-async function createSong(data) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/music/songs`,
-    {
-      cache: "no-store",
-      method: "POST",
-      body: JSON.stringify(data),
+async function createSong(data, session) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/songs`, {
+    cache: "no-store",
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${session.accessToken}`,
     },
-  );
+    body: JSON.stringify(data),
+  });
 
   return response;
 }
@@ -26,17 +29,26 @@ async function createSong(data) {
 export default function AddSong({ album, className }) {
   const [response, setResponse] = useState(null);
   const [file, setFile] = useState(undefined);
+  const { data: session } = useSession();
 
   async function onAction(formData) {
+    const date = formData.get("year").split("-");
+    const year = parseInt(date[0]);
+    const month = parseInt(date[1]);
+    const day = parseInt(date[2]);
+
+    const artists = formData.get("artists").split(",");
+
     const data = {
-      title: formData.get("title"),
-      year: parseInt(formData.get("year")),
-      genre: formData.get("genre"),
-      performers: formData.get("performers"),
+      name: formData.get("name"),
+      artists: JSON.stringify(artists),
+      year: year,
+      month: month,
+      day: day,
       album_id: album.id,
     };
 
-    const res = await createSong(data);
+    const res = await createSong(data, session);
     setResponse(res);
   }
 
@@ -52,7 +64,16 @@ export default function AddSong({ album, className }) {
       for (let i = 0; i < json.length; i++) {
         const song = array[i];
 
-        const res = await createSong(song);
+        const data = {
+          name: song.name,
+          artists: JSON.stringify(song.artists),
+          year: song.year,
+          month: song.month,
+          day: song.day,
+          album_id: album.id,
+        };
+
+        const res = await createSong(data, session);
         setResponse(res);
       }
     } catch (error) {
@@ -70,7 +91,7 @@ export default function AddSong({ album, className }) {
         </DialogTrigger>
         <DialogContent className="border-zinc-700 bg-zinc-800 text-gray-100">
           <DialogHeader>
-            <DialogTitle>Add a song to {album?.title}</DialogTitle>
+            <DialogTitle>Add a song to {album?.name}</DialogTitle>
           </DialogHeader>
           <div className="flex h-full w-full flex-col items-center justify-center gap-5 px-5 text-gray-100">
             <form
@@ -79,13 +100,13 @@ export default function AddSong({ album, className }) {
             >
               <input
                 type="text"
-                name="title"
-                placeholder="Title"
+                name="name"
+                placeholder="Name"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
               />
               <input
-                type="number"
+                type="date"
                 name="year"
                 placeholder="Year"
                 required
@@ -93,15 +114,8 @@ export default function AddSong({ album, className }) {
               />
               <input
                 type="text"
-                name="genre"
-                placeholder="Genre"
-                required
-                className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
-              />
-              <input
-                type="text"
-                name="performers"
-                placeholder="Performers"
+                name="artists"
+                placeholder="artists"
                 required
                 className="rounded border border-zinc-700 bg-zinc-500 px-4 py-2 placeholder:text-gray-100"
               />

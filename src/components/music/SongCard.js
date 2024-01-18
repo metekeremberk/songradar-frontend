@@ -24,7 +24,11 @@ export default function SongCard({ music }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setSongCoverUrl(data);
+        if (data === "Not found") {
+          setSongCoverUrl(null);
+        } else {
+          setSongCoverUrl(data);
+        }
         setIsLoading(false);
       });
   }, []);
@@ -35,7 +39,14 @@ export default function SongCard({ music }) {
     return (
       <div className="flex h-16 items-center gap-5 rounded bg-zinc-800 transition-colors hover:bg-zinc-700">
         <div className={"h-16 w-16 min-w-[64px] rounded-l"}>
-          <Image src={songCoverUrl} alt="song_cover" width={300} height={300} />
+          {songCoverUrl && (
+            <Image
+              src={songCoverUrl}
+              alt="song_cover"
+              width={300}
+              height={300}
+            />
+          )}
         </div>
 
         <div className="p-2">
