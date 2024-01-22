@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export async function DELETE({ params }) {
+export async function DELETE(req, { params }) {
   const response = await fetch(
     `${process.env.NEXT_DB_URL}/songs/${params.id}`,
     {
@@ -8,6 +8,7 @@ export async function DELETE({ params }) {
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${req.headers.get("Authorization")}`,
       },
     },
   );

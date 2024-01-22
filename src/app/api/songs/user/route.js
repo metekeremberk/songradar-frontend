@@ -12,6 +12,7 @@ export async function GET(req) {
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `Bearer ${req.headers.get("Authorization")}`,
       },
     },
   );
