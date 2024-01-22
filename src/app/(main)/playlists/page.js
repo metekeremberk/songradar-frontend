@@ -20,8 +20,7 @@ export default function Playlists() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  useEffect(() => {
-    setIsLoading(true);
+  function getPlaylists() {
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
       {
@@ -37,8 +36,13 @@ export default function Playlists() {
       .then((response) => response.json())
       .then((data) => {
         setPlaylists(data);
-        setIsLoading(false);
       });
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    getPlaylists();
+    setIsLoading(false);
   }, []);
 
   async function createPlaylist(formData) {
@@ -69,7 +73,7 @@ export default function Playlists() {
         <p className="border-b border-zinc-700 py-4 text-2xl">Playlists</p>
         <div className="grid grid-cols-5 gap-5 p-5">
           <Dialog>
-            <DialogTrigger className="flex flex-col items-center justify-center gap-3 rounded bg-zinc-800 transition-colors hover:bg-zinc-700">
+            <DialogTrigger className="flex min-w-[160px] basis-[12.5%] flex-col items-center justify-center gap-3 rounded bg-zinc-800 transition-colors hover:bg-zinc-700">
               <p>Create Playlist</p>
               <Plus />
             </DialogTrigger>
@@ -98,7 +102,7 @@ export default function Playlists() {
             </DialogContent>
           </Dialog>
           {playlists?.map((playlist, i) => {
-            return <PlaylistsCard music={playlist} key={i} />;
+            return <PlaylistsCard playlist={playlist} key={i} />;
           })}
         </div>
       </div>

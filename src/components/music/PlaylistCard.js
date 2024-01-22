@@ -72,21 +72,21 @@ export default function PlaylistsCard({ playlist }) {
         <ContextMenuTrigger>
           <Link
             className="flex min-w-[160px] basis-[12.5%] flex-col items-start rounded bg-zinc-800 p-2.5 transition-colors hover:bg-zinc-700"
-            href={"/playlists/" + playlist.id}
+            href={"/playlists/" + playlist?.id}
           >
             <div
               className={
                 "mb-3 grid aspect-square h-auto w-full grid-cols-2 rounded"
               }
             ></div>
-            <p className="line-clamp-1 text-lg font-light">{playlist.name}</p>
+            <p className="line-clamp-1 text-lg font-light">{playlist?.name}</p>
             <p className="line-clamp-1 opacity-60">Playlist</p>
           </Link>
         </ContextMenuTrigger>
         <ContextMenuContent className="border-zinc-800 bg-zinc-900 text-gray-50">
           <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
             <Link
-              href={"/radio/playlist/" + playlist.id}
+              href={"/radio/playlist/" + playlist?.id}
               className="flex gap-2"
             >
               <Radio className="opacity-60" size={20} />
@@ -101,7 +101,7 @@ export default function PlaylistsCard({ playlist }) {
             </AlertDialogTrigger>
           </ContextMenuItem>
         </ContextMenuContent>
-        <DeleteMenu id={playlist.id} token={session.accessToken} />
+        <DeleteMenu id={playlist?.id} token={session.accessToken} />
       </ContextMenu>
     </AlertDialog>
   );

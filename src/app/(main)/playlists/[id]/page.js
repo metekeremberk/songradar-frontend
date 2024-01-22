@@ -3,9 +3,9 @@
 import Loading from "@/components/loading/Loading";
 import MoreMenu from "@/components/playlists/MoreMenu";
 import PlaylistItem from "@/components/playlists/PlaylistItem";
-import { getColorPairing } from "@/lib/colorPair";
-import { Dot } from "lucide-react";
+import { ArrowLeft, Dot } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function PlaylistPage({ params }) {
@@ -13,6 +13,7 @@ export default function PlaylistPage({ params }) {
   const [isLoading, setIsLoading] = useState(false);
   const [playlist, setPlaylist] = useState({});
   const [allPlaylists, setAllPlaylists] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     setIsLoading(true);
@@ -55,11 +56,18 @@ export default function PlaylistPage({ params }) {
     return (
       <div className="grid h-full w-full grid-cols-1 grid-rows-5 text-gray-50">
         <div className="row-span-2 flex w-full justify-between gap-4 p-4">
-          <div className="flex grow justify-start gap-4 px-8">
-            <div
-              color="#064e3b"
-              className="row-span-2 m-auto aspect-square w-48 flex-none rounded bg-zinc-800 p-1"
-            />
+          <div className="flex grow justify-start gap-4 ">
+            <div>
+              <button
+                className="rounded-full p-2 transition-colors hover:bg-zinc-800"
+                onClick={() => {
+                  router.back();
+                }}
+              >
+                <ArrowLeft color="#f9fafb" size={30} />
+              </button>
+            </div>
+            <div className="row-span-2 m-auto aspect-square w-48 flex-none rounded bg-zinc-800 p-1" />
             <div className="col-span-3 row-span-2 flex h-full grow flex-col items-start justify-center pt-20  font-light">
               <p className="text-2xl">{playlist?.name}</p>
               <div className="flex items-center gap-2">
@@ -80,7 +88,6 @@ export default function PlaylistPage({ params }) {
               <PlaylistItem
                 song={song}
                 key={i}
-                gradient={getColorPairing(song)}
                 allPlaylists={allPlaylists}
                 playlist={playlist}
               />

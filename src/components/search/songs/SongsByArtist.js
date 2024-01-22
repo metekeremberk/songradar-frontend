@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Loading from "../../loading/Loading";
-import SongItem from "./SongItem";
-import SongCard from "@/components/music/SongCard";
+import SongItem from "@/components/music/song/SongItem";
 
 export default function SongsByArtist({ searchWord, playlists, toggled }) {
   const [isLoading, setIsLoading] = useState(false);

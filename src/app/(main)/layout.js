@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     <div className="flex h-full w-full justify-between">
       <Sidebar />
       {children}
-      {/* <Friends /> */}
+      <Friends />
     </div>
   );
 }

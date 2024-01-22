@@ -88,7 +88,7 @@ export default function SongCard({ song }) {
     console.log(error);
   }
 
-  useEffect(() => {
+  function getImageUrl() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/songs/cover/${song?.id}`, {
       cache: "no-store",
       method: "GET",
@@ -104,9 +104,10 @@ export default function SongCard({ song }) {
         } else {
           setSongCoverUrl(data);
         }
-        setIsLoading(false);
       });
+  }
 
+  function getPlaylists() {
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
       {
@@ -123,7 +124,7 @@ export default function SongCard({ song }) {
       .then((data) => {
         setPlaylists(data);
       });
-  }, []);
+  }
 
   function checkIsStarred() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/starred/${song.id}`, {
@@ -140,7 +141,11 @@ export default function SongCard({ song }) {
   }
 
   useEffect(() => {
+    setIsLoading(true);
+    getImageUrl();
+    getPlaylists();
     checkIsStarred();
+    setIsLoading(false);
   }, []);
 
   function handleStarSong() {
@@ -181,7 +186,9 @@ export default function SongCard({ song }) {
           Authorization: `${session.accessToken}`,
         },
       },
-    );
+    )
+      .then((response) => response.json())
+      .then((data) => data);
   }
 
   if (isLoading) {
