@@ -33,7 +33,7 @@ export default function Sidebar() {
     {
       svg: <User color="#f3f4f6" size={25} />,
       title: "Profile",
-      href: "/user/" + user.id,
+      href: "/profile",
     },
   ];
 
