@@ -66,6 +66,8 @@ function DeleteMenu({ id, token }) {
 
 export default function PlaylistsCard({ playlist }) {
   const { data: session } = useSession();
+  const isStarred = playlist.id === "starred";
+
   return (
     <AlertDialog>
       <ContextMenu>
@@ -85,21 +87,31 @@ export default function PlaylistsCard({ playlist }) {
         </ContextMenuTrigger>
         <ContextMenuContent className="border-zinc-800 bg-zinc-900 text-gray-50">
           <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
-            <Link
-              href={"/radio/playlist/" + playlist?.id}
-              className="flex gap-2"
-            >
-              <Radio className="opacity-60" size={20} />
-              <p>Go to radio</p>
-            </Link>
+            {isStarred && (
+              <Link
+                href={"/radio/playlist/" + playlist?.id}
+                className="flex gap-2"
+              >
+                <Radio className="opacity-60" size={20} />
+                <p>Go to radio</p>
+              </Link>
+            )}
+            {!isStarred && (
+              <Link href={"/radio/starred"} className="flex gap-2">
+                <Radio className="opacity-60" size={20} />
+                <p>Go to radio</p>
+              </Link>
+            )}
           </ContextMenuItem>
           <ContextMenuSeparator className=" bg-zinc-800 " />
-          <ContextMenuItem className="focus:bg-red-800 focus:text-gray-50">
-            <AlertDialogTrigger className="flex h-full w-full gap-2">
-              <Trash className="opacity-60" size={20} />
-              <p>Delete playlist</p>
-            </AlertDialogTrigger>
-          </ContextMenuItem>
+          {!isStarred && (
+            <ContextMenuItem className="focus:bg-red-800 focus:text-gray-50">
+              <AlertDialogTrigger className="flex h-full w-full gap-2">
+                <Trash className="opacity-60" size={20} />
+                <p>Delete playlist</p>
+              </AlertDialogTrigger>
+            </ContextMenuItem>
+          )}
         </ContextMenuContent>
         <DeleteMenu id={playlist?.id} token={session.accessToken} />
       </ContextMenu>

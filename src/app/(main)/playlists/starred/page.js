@@ -11,25 +11,29 @@ import { useEffect, useState } from "react";
 
 export default function PlaylistPage({ params }) {
   const { data: session } = useSession();
-  const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState({
-    songs: [],
-  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [playlist, setPlaylist] = useState({ songs: [] });
   const [allPlaylists, setAllPlaylists] = useState([]);
   const router = useRouter();
 
-  function getPlaylist() {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/playlists/${params.id}`, {
+  function getStarred() {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/starred`, {
       cache: "no-store",
       method: "GET",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
+        Authorization: `${session.accessToken}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data) setPlaylist(data);
+        if (data)
+          setPlaylist({
+            name: "Favorites",
+            songs: data,
+            id: "favorites",
+          });
       });
   }
 
@@ -54,7 +58,7 @@ export default function PlaylistPage({ params }) {
 
   useEffect(() => {
     setIsLoading(true);
-    getPlaylist();
+    getStarred();
     getAllPlaylists();
     setIsLoading(false);
   }, []);
@@ -62,7 +66,9 @@ export default function PlaylistPage({ params }) {
   if (isLoading) {
     return <Loading />;
   } else {
-    const averageValues = playlist.songs.reduce(
+    console.log("playlist", playlist);
+
+    const averageValues = playlist?.songs.reduce(
       (acc, song, _, { length }) => {
         acc.danceability += song.danceability / length;
         acc.energy += song.energy / length;
@@ -107,8 +113,6 @@ export default function PlaylistPage({ params }) {
                 <p className="text-lg opacity-60">
                   {playlist?.songs?.length} songs
                 </p>
-                <Dot className="opacity-60" />
-                <MoreMenu id={params.id} />
               </div>
             </div>
           </div>

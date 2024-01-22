@@ -9,6 +9,7 @@ import SongItem from "@/components/music/song/SongItem";
 import Loading from "@/components/loading/Loading";
 import AlbumMoreMenu from "@/components/music/album/AlbumMoreMenu";
 import jsonFix from "@/lib/jsonfix";
+import AlbumDetailsBarChart from "@/components/music/album/AlbumDetailsBarChart";
 
 export default function page({ params }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,6 +19,7 @@ export default function page({ params }) {
   const [time, setTime] = useState(null);
   const [ownsAlbum, setOwnsAlbum] = useState(false);
   const [playlists, setPlaylists] = useState([]);
+  const [albumChartData, setAlbumChartData] = useState({});
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -44,6 +46,15 @@ export default function page({ params }) {
         const minutes = String(date.getMinutes());
         const seconds = String(date.getSeconds());
         setTime(minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+        setAlbumChartData({
+          danceability: data.danceability,
+          energy: data.energy,
+          speechiness: data.speechiness,
+          acousticness: data.acousticness,
+          instrumentalness: data.instrumentalness,
+          liveness: data.liveness,
+          valence: data.valence,
+        });
         setIsLoading(false);
       });
 
@@ -129,6 +140,7 @@ export default function page({ params }) {
               </div>
             </div>
           </div>
+          <AlbumDetailsBarChart data={albumChartData} />
         </div>
         <div className="col-span-4 row-span-3 flex flex-col overflow-y-auto border-t border-zinc-700 p-5">
           {album.tracks?.map((song, i) => {

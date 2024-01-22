@@ -1,6 +1,13 @@
 "use client";
 
-import { Ban, Disc3, ListMusic, MoreHorizontal, Star } from "lucide-react";
+import {
+  Ban,
+  Disc3,
+  ListMusic,
+  MoreHorizontal,
+  Radio,
+  Star,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +28,7 @@ export default function PlaylistItemMoreMenu({
   playlist,
 }) {
   const { data: session } = useSession();
+  const isFavoriteList = playlist.id === "favorites";
 
   let albumId;
 
@@ -95,21 +103,31 @@ export default function PlaylistItemMoreMenu({
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-        <DropdownMenuSeparator className=" bg-zinc-800 " />
-        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
-          <button
-            onClick={() => handleDeletePlaylist(track.id)}
-            className="flex gap-2"
-          >
-            <Ban className="opacity-60" size={20} />
-            <p>Remove from playlist</p>
-          </button>
-        </DropdownMenuItem>
+        {!isFavoriteList && (
+          <>
+            <DropdownMenuSeparator className=" bg-zinc-800 " />
+            <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+              <button
+                onClick={() => handleDeletePlaylist(track.id)}
+                className="flex gap-2"
+              >
+                <Ban className="opacity-60" size={20} />
+                <p>Remove from playlist</p>
+              </button>
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuSeparator className=" bg-zinc-800 " />
         <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
           <Link href={"/albums/" + albumId} className="flex gap-2">
             <Disc3 className="opacity-60" size={20} />
             <p>Go to album</p>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+          <Link href={"/radio/song/" + track?.id} className="flex gap-2">
+            <Radio className="opacity-60" size={20} />
+            <p>Go to radio</p>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

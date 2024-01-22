@@ -19,6 +19,10 @@ export default function Playlists() {
   const [playlists, setPlaylists] = useState([]);
   const { data: session } = useSession();
   const router = useRouter();
+  const starred = {
+    id: "starred",
+    name: "Favorites",
+  };
 
   function getPlaylists() {
     fetch(
@@ -101,6 +105,7 @@ export default function Playlists() {
               </form>
             </DialogContent>
           </Dialog>
+          <PlaylistsCard playlist={starred} />
           {playlists?.map((playlist, i) => {
             return <PlaylistsCard playlist={playlist} key={i} />;
           })}

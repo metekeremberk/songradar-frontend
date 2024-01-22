@@ -193,7 +193,7 @@ export default function SongItem({ song, playlists }) {
               <p className="col-span-3 truncate px-2 py-2">{song.name}</p>
               <p className="truncate px-2 py-2 opacity-60">{song.year}</p>
               <p className="col-span-2 truncate px-2 py-2 opacity-60">
-                {artists}
+                {artists.toString()}
               </p>
               <div className="flex items-center gap-3">
                 <SongItemMenu track={song} playlists={playlists} />

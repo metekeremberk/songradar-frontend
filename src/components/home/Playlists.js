@@ -7,7 +7,10 @@ export default function Playlists({ skip = 0 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const { data: session } = useSession();
-
+  const starred = {
+    id: "starred",
+    name: "Favorites",
+  };
   useEffect(() => {
     setIsLoading(true);
     fetch(
@@ -34,6 +37,7 @@ export default function Playlists({ skip = 0 }) {
   } else {
     return (
       <div className="flex justify-start gap-3 overflow-auto">
+        <PlaylistsCard playlist={starred} />
         {playlists?.map((playlist, i) => {
           return <PlaylistsCard key={i} playlist={playlist} />;
         })}

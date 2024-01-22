@@ -95,7 +95,7 @@ export default function UserProfile() {
     );
 
     return (
-      <div className="grid h-full overflow-y-auto">
+      <div className="grid h-full w-full overflow-y-auto">
         <div className="flex h-[40vh] items-center gap-10 border-b border-zinc-600 px-10 pt-10">
           <div className="z-0 h-40 w-40 rounded-full bg-blue-100"></div>
           <div className="flex flex-col gap-2">
@@ -105,18 +105,6 @@ export default function UserProfile() {
           </div>
         </div>
         <div className="bg-zinc-900 bg-opacity-50 p-4">
-          {starred && (
-            <>
-              <p className="border-b border-zinc-700 py-4 text-2xl">
-                Favorites
-              </p>
-              <div className="grid grid-cols-3 gap-5 p-5">
-                {starred?.map((song, i) => {
-                  return <SongCard song={song} key={i} />;
-                })}
-              </div>
-            </>
-          )}
           <div className="mt-10 flex h-[50vh] gap-5">
             <StarredSongsBarChart data={averageValues} />
             <StarredSongsLoudnessLineChart data={starred} />

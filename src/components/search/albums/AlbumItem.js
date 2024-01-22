@@ -132,7 +132,7 @@ export default function Album({ album, playlists }) {
               <p className="col-span-3 truncate px-2 py-2">{album.name}</p>
               <p className="truncate px-2 py-2 opacity-60">{album.year}</p>
               <p className="col-span-2 truncate px-2 py-2 opacity-60">
-                {artists}
+                {artists.toString()}
               </p>
               <div className="flex items-center gap-3">
                 <AlbumItemMenu

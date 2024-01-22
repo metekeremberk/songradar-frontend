@@ -26,7 +26,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Disc3, ListMusic, Radio, Star, StarOff, Trash } from "lucide-react";
+import {
+  Ban,
+  Disc3,
+  ListMusic,
+  Radio,
+  Star,
+  StarOff,
+  Trash,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Loading from "../loading/Loading";
@@ -80,6 +88,7 @@ export default function PlaylistItem({ song, allPlaylists, playlist }) {
   const [isStarred, setIsStarred] = useState(false);
   const { data: session } = useSession();
   const ownsSong = song.owner_id === session.user.id;
+  const isFavoriteList = playlist.id === "favorites";
 
   function getImageUrl() {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/songs/cover/${song?.id}`, {
@@ -153,6 +162,21 @@ export default function PlaylistItem({ song, allPlaylists, playlist }) {
       {
         cache: "no-store",
         method: "PUT",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${session.accessToken}`,
+        },
+      },
+    );
+  }
+
+  function handleDeletePlaylist(songId) {
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/${playlist.id}/${songId}`,
+      {
+        cache: "no-store",
+        method: "DELETE",
         headers: {
           accept: "application/json",
           "Content-Type": "application/json",
@@ -238,6 +262,20 @@ export default function PlaylistItem({ song, allPlaylists, playlist }) {
                 </ContextMenuSubContent>
               </ContextMenuPortal>
             </ContextMenuSub>
+            {!isFavoriteList && (
+              <>
+                <ContextMenuSeparator className=" bg-zinc-800 " />
+                <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+                  <button
+                    onClick={() => handleDeletePlaylist(track.id)}
+                    className="flex gap-2"
+                  >
+                    <Ban className="opacity-60" size={20} />
+                    <p>Remove from playlist</p>
+                  </button>
+                </ContextMenuItem>
+              </>
+            )}
             <ContextMenuSeparator className=" bg-zinc-800 " />
             <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
               <Link href={"/albums/" + song.album_id} className="flex gap-2">
