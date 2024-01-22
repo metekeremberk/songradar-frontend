@@ -13,7 +13,6 @@ import Link from "next/link";
 import Loading from "@/components/loading/Loading";
 import { useEffect, useState } from "react";
 import SongCard from "@/components/music/SongCard";
-import ExampleGraph from "./ExampleGraph";
 import StarredSongsBarChart from "@/components/profile/StarredSongsBarChart";
 import StarredSongsLoudnessLineChart from "@/components/profile/StarredSongsLoudnessLineChart";
 import StarredSongsDecadesPieChart from "@/components/profile/StarredSongsDecadesPieChart";

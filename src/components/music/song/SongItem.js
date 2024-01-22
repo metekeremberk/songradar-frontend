@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import SongItemMenu from "@/components/search/songs/SongItemMenu";
+import Link from "next/link";
 
 export default function SongItem({ song, playlists }) {
   const [songCoverUrl, setSongCoverUrl] = useState("");
@@ -34,7 +35,10 @@ export default function SongItem({ song, playlists }) {
   }, []);
 
   return (
-    <div className="relative my-1 flex w-full items-center gap-2 rounded border-zinc-700 px-2 py-1 transition-colors hover:bg-zinc-800">
+    <Link
+      href={"/songs/" + song.id}
+      className="relative my-1 flex w-full items-center gap-2 rounded border-zinc-700 px-2 py-1 transition-colors hover:bg-zinc-800"
+    >
       {songCoverUrl && (
         <Image alt="song_cover" width={30} height={30} src={songCoverUrl} />
       )}
@@ -42,6 +46,6 @@ export default function SongItem({ song, playlists }) {
       <p className="basis-32 truncate px-2 py-2 opacity-60">{song.year}</p>
       <p className="basis-60 truncate px-2 py-2 opacity-60">{artists}</p>
       <SongItemMenu track={song} playlists={playlists} />
-    </div>
+    </Link>
   );
 }

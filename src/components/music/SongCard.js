@@ -190,7 +190,10 @@ export default function SongCard({ song }) {
       <AlertDialog>
         <ContextMenu>
           <ContextMenuTrigger>
-            <div className="flex h-16 items-center gap-5 rounded bg-zinc-800 transition-colors hover:bg-zinc-700">
+            <Link
+              href={"/songs/" + song.id}
+              className="flex h-16 items-center gap-5 rounded bg-zinc-800 transition-colors hover:bg-zinc-700"
+            >
               <div className={"h-16 w-16 min-w-[64px] rounded-l"}>
                 {songCoverUrl && (
                   <Image
@@ -206,7 +209,7 @@ export default function SongCard({ song }) {
                 <p className="line-clamp-1 text-lg font-light">{song?.name}</p>
                 <p className="line-clamp-1 opacity-60">{artists.toString()}</p>
               </div>
-            </div>
+            </Link>
           </ContextMenuTrigger>
           <ContextMenuContent className="border-zinc-800 bg-zinc-900 text-gray-50">
             <ContextMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">

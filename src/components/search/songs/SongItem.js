@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import SongItemMenu from "./SongItemMenu";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SongItem({ song, playlists }) {
   const [songCoverUrl, setSongCoverUrl] = useState(null);
@@ -38,7 +39,10 @@ export default function SongItem({ song, playlists }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-8 items-center gap-3 rounded p-2 transition-colors hover:bg-zinc-800">
+    <Link
+      href={"/songs/" + song.id}
+      className="grid grid-cols-8 items-center gap-3 rounded p-2 transition-colors hover:bg-zinc-800"
+    >
       <div className={"h-8 w-8 min-w-[32px] rounded-l"}>
         {songCoverUrl && (
           <Image
@@ -58,6 +62,6 @@ export default function SongItem({ song, playlists }) {
       <div className="flex items-center justify-center">
         <SongItemMenu track={song} playlists={playlists} />
       </div>
-    </div>
+    </Link>
   );
 }
