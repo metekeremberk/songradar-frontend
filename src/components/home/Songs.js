@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Loading from "../../loading/Loading";
-import SongCard from "../../music/SongCard";
+import Loading from "../loading/Loading";
+import SongCard from "../music/SongCard";
 
 export default function Songs() {
   const [isLoading, setIsLoading] = useState(false);

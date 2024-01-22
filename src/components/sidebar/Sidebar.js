@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Home, LibrarySquare, ListMusic, Search, User } from "lucide-react";
+import {
+  Home,
+  LibrarySquare,
+  ListMusic,
+  Radio,
+  Search,
+  User,
+} from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function Sidebar() {
@@ -24,6 +31,11 @@ export default function Sidebar() {
       svg: <LibrarySquare color="#f3f4f6" size={25} />,
       title: "Personal",
       href: "/personal",
+    },
+    {
+      svg: <Radio color="#f3f4f6" size={25} />,
+      title: "My radio",
+      href: "/radio",
     },
     {
       svg: <ListMusic color="#f3f4f6" size={25} />,

@@ -41,8 +41,6 @@ export default function StarredSongsDecadesPieChart({ data }) {
     ],
   });
 
-  console.log(chartData);
-
   return (
     <div className="basis-1/2 rounded-xl bg-gray-50 p-2">
       <Pie

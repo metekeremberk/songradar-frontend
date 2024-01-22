@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import SongItemMenu from "./SongItemMenu";
 import Image from "next/image";
 import Link from "next/link";
+import jsonFix from "@/lib/jsonfix";
 
 export default function SongItem({ song, playlists }) {
   const [songCoverUrl, setSongCoverUrl] = useState(null);
 
   let artists = "Artists";
   try {
-    artists = JSON.parse(song.artists.replace(/'/g, '"'));
+    artists = JSON.parse(jsonFix(song.artists));
   } catch (error) {
     console.log(error);
   }

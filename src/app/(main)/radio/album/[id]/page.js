@@ -4,21 +4,22 @@ import Loading from "@/components/loading/Loading";
 import SongItem from "@/components/music/song/SongItem";
 import { ArrowLeft } from "lucide-react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function RadioPage({ params }) {
   const [isLoading, setIsLoading] = useState(false);
   const [recommendedSongs, setRecommendedSongs] = useState([]);
-  const [song, setSong] = useState({});
+  const [album, setAlbum] = useState({});
+  const [albumCoverUrl, setAlbumCoverUrl] = useState(null);
   const [playlists, setPlaylists] = useState("");
   const router = useRouter();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    setIsLoading(true);
+  function getRecommendations() {
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/recommend/song/${params.id}?recommend=30`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/recommend/album/${params.id}?recommend=30`,
       {
         cache: "no-store",
         method: "GET",
@@ -31,10 +32,11 @@ export default function RadioPage({ params }) {
       .then((response) => response.json())
       .then((data) => {
         setRecommendedSongs(data);
-        setIsLoading(false);
       });
+  }
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/songs/find/${params.id}`, {
+  function getAlbum() {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/find/${params.id}`, {
       cache: "no-store",
       method: "GET",
       headers: {
@@ -44,9 +46,30 @@ export default function RadioPage({ params }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setSong(data);
+        setAlbum(data);
       });
+  }
 
+  function getImageUrl() {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/cover/${params.id}`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === "Not found") {
+          setAlbumCoverUrl(null);
+        } else {
+          setAlbumCoverUrl(data);
+        }
+      });
+  }
+
+  function getPlaylists() {
     fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
       {
@@ -63,6 +86,15 @@ export default function RadioPage({ params }) {
       .then((data) => {
         setPlaylists(data);
       });
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    getRecommendations();
+    getAlbum();
+    getImageUrl();
+    getPlaylists();
+    setIsLoading(false);
   }, []);
 
   if (isLoading) {
@@ -81,9 +113,18 @@ export default function RadioPage({ params }) {
               <ArrowLeft color="#f9fafb" size={30} />
             </button>
           </div>
+          {albumCoverUrl && (
+            <Image
+              src={`${albumCoverUrl}`}
+              className="row-span-2 m-auto flex-none rounded p-1"
+              width={192}
+              height={192}
+              alt="album_cover"
+            />
+          )}
           <div className="flex grow justify-start gap-4">
             <div className="col-span-3 row-span-2 flex h-full grow flex-col items-start justify-center pt-20 font-light">
-              <p className="text-2xl">"{song.name}" radio</p>
+              <p className="text-2xl">"{album.name}" radio</p>
             </div>
           </div>
         </div>

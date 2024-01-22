@@ -29,6 +29,7 @@ import {
 import { Disc3, ListMusic, Radio, Star, StarOff, Trash } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import jsonFix from "@/lib/jsonfix";
 
 function DeleteMenu({ id, token }) {
   const router = useRouter();
@@ -82,7 +83,7 @@ export default function SongCard({ song }) {
 
   let artists = "Artists";
   try {
-    artists = JSON.parse(song.artists.replace(/'/g, '"'));
+    artists = JSON.parse(jsonFix(song.artists));
   } catch (error) {
     console.log(error);
   }
@@ -258,7 +259,7 @@ export default function SongCard({ song }) {
               </Link>
             </ContextMenuItem>
             <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
-              <Link href={"/radio/" + song.id} className="flex gap-2">
+              <Link href={"/radio/song/" + song.id} className="flex gap-2">
                 <Radio className="opacity-60" size={20} />
                 <p>Go to radio</p>
               </Link>

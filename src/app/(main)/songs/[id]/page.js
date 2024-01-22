@@ -8,10 +8,11 @@ import { ArrowLeft, Dot } from "lucide-react";
 import Loading from "@/components/loading/Loading";
 import SongItemMenu from "@/components/search/songs/SongItemMenu";
 import SongDetailsBarChart from "@/components/music/song/SongDetailsBarChart";
+import jsonFix from "@/lib/jsonfix";
 
 export default function page({ params }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [song, setSong] = useState([]);
+  const [song, setSong] = useState({});
   const [songCoverUrl, setSongCoverUrl] = useState("");
   const [artists, setArtists] = useState("Artists");
   const [time, setTime] = useState(null);
@@ -36,7 +37,7 @@ export default function page({ params }) {
         setOwnsSong(session.user.id === data.owner_id);
         getImageUrl();
         try {
-          setArtists(JSON.parse(data.artists.replace(/'/g, '"')));
+          setArtists(JSON.parse(jsonFix(data.artists)));
         } catch (error) {
           console.log(error);
         }

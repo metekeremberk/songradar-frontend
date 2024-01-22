@@ -22,9 +22,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Disc3, Trash } from "lucide-react";
+import { Disc3, Radio, Trash } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import jsonFix from "@/lib/jsonfix";
 
 function DeleteMenu({ id, token }) {
   const router = useRouter();
@@ -76,7 +77,7 @@ export default function AlbumCard({ album }) {
 
   let artists = "Artists";
   try {
-    artists = JSON.parse(album.artists.replace(/'/g, '"'));
+    artists = JSON.parse(jsonFix(album.artists));
   } catch (error) {
     console.log(error);
   }
@@ -131,6 +132,12 @@ export default function AlbumCard({ album }) {
               <Link href={"/albums/" + album.id} className="flex gap-2">
                 <Disc3 className="opacity-60" size={20} />
                 <p>Go to album</p>
+              </Link>
+            </ContextMenuItem>
+            <ContextMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
+              <Link href={"/radio/album/" + album.id} className="flex gap-2">
+                <Radio className="opacity-60" size={20} />
+                <p>Go to radio</p>
               </Link>
             </ContextMenuItem>
             {ownsAlbum && (

@@ -4,13 +4,14 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AlbumItemMenu from "./AlbumItemMenu";
 import Image from "next/image";
+import jsonFix from "@/lib/jsonfix";
 
 export default function AlbumItem({ album }) {
   const [albumCoverUrl, setAlbumCoverUrl] = useState(null);
 
   let artists = "Artists";
   try {
-    artists = JSON.parse(album.artists.replace(/'/g, '"'));
+    artists = JSON.parse(jsonFix(album.artists));
   } catch (error) {
     console.log(error);
   }

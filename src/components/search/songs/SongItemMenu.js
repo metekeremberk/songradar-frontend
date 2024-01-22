@@ -35,6 +35,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/loading/Loading";
 
 function DeleteMenu({ id, token }) {
   const router = useRouter();
@@ -104,9 +105,12 @@ export default function SongItemMenu({ track, playlists }) {
   }
 
   useEffect(() => {
-    checkIsStarred();
     checkOwnsSong();
   }, []);
+
+  useEffect(() => {
+    checkIsStarred();
+  }, [track]);
 
   function handleStarSong() {
     if (!isStarred) {
@@ -202,7 +206,7 @@ export default function SongItemMenu({ track, playlists }) {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem className="focus:bg-zinc-800 focus:text-gray-50">
-            <Link href={"/radio/" + track.id} className="flex gap-2">
+            <Link href={"/radio/song/" + track.id} className="flex gap-2">
               <Radio className="opacity-60" size={20} />
               <p>Go to radio</p>
             </Link>

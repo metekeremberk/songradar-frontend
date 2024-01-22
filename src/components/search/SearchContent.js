@@ -45,10 +45,6 @@ export default function SearchContent({ searchWord }) {
       });
   }, []);
 
-  useEffect(() => {
-    console.log(toggleValue);
-  }, [toggleValue]);
-
   if (searchWord !== "") {
     return (
       <div className="p-6">

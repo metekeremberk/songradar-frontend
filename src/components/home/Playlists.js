@@ -35,7 +35,7 @@ export default function Playlists({ skip = 0 }) {
     return (
       <div className="flex justify-start gap-3 overflow-auto">
         {playlists?.map((playlist, i) => {
-          return <PlaylistsCard key={i} music={playlist} />;
+          return <PlaylistsCard key={i} playlist={playlist} />;
         })}
       </div>
     );
