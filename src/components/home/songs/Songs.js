@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Loading from "../loading/Loading";
-import SongCard from "../music/SongCard";
+import Loading from "../../loading/Loading";
+import SongCard from "../../music/SongCard";
 
 export default function Songs() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function Songs() {
     return (
       <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
         {songs.map((song, i) => {
-          return <SongCard key={i} music={song} />;
+          return <SongCard key={i} song={song} />;
         })}
       </div>
     );

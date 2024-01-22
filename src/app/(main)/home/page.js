@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import Songs from "@/components/home/Songs";
-import Albums from "@/components/home/Albums";
+import Songs from "@/components/home/songs/Songs";
+import Albums from "@/components/home/albums/Albums";
 import Playlists from "@/components/home/Playlists";
 
 function RecommendedSong({
@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <div className="flex h-full w-full flex-col items-center overflow-hidden overflow-y-auto px-8 py-4 text-gray-50">
-      <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
+      {/* <div className="flex w-full flex-col gap-3 border-b border-zinc-700 pb-4">
         <div className="flex justify-between">
           <p className="text-xl">Recommendations for {user.name}</p>
           <Link
@@ -52,7 +52,7 @@ export default function Home() {
           <RecommendedSong />
           <RecommendedSong />
         </div>
-      </div>
+      </div> */}
       <div className="flex w-full flex-col gap-3 border-b border-zinc-700 py-4">
         <div className="flex justify-between">
           <p className="text-xl">Playlists</p>

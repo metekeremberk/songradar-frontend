@@ -1,6 +1,6 @@
 "use client";
 
-import { Ban, Disc3, Heart, ListMusic, MoreHorizontal } from "lucide-react";
+import { Ban, Disc3, ListMusic, MoreHorizontal, Star } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,7 +67,7 @@ export default function PlaylistItemMoreMenu({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="border-zinc-800 bg-zinc-950/95 text-gray-50">
         <DropdownMenuItem className="gap-2 focus:bg-zinc-800 focus:text-gray-50">
-          <Heart className="opacity-60" size={20} />
+          <Star className="opacity-60" size={20} />
           <p>Add to liked songs</p>
         </DropdownMenuItem>
         <DropdownMenuSub>

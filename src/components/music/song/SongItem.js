@@ -1,11 +1,10 @@
 "use client";
 
-import { Ban, Heart } from "lucide-react";
-import DeleteButton from "../DeleteButton";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import SongItemMenu from "@/components/search/songs/SongItemMenu";
 
-export default function SongItem({ song }) {
+export default function SongItem({ song, playlists }) {
   const [songCoverUrl, setSongCoverUrl] = useState("");
 
   let artists = "Artists";
@@ -42,24 +41,7 @@ export default function SongItem({ song }) {
       <p className="grow truncate px-2 py-2">{song.name}</p>
       <p className="basis-32 truncate px-2 py-2 opacity-60">{song.year}</p>
       <p className="basis-60 truncate px-2 py-2 opacity-60">{artists}</p>
-      <div className="flex items-center gap-3">
-        <Heart
-          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
-          size={25}
-          color="#f9fafb"
-        />
-        <Ban
-          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
-          size={25}
-          color="#f9fafb"
-        />
-        <DeleteButton
-          className={"cursor-pointer rounded-full hover:bg-zinc-700"}
-          item={song}
-          name={"song"}
-          size={25}
-        />
-      </div>
+      <SongItemMenu track={song} playlists={playlists} />
     </div>
   );
 }

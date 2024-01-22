@@ -1,15 +1,15 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { ArrowLeft, Dot } from "lucide-react";
 import DeleteButton from "@/components/music/DeleteButton";
 import AddSong from "@/components/music/song/AddSong";
 import SongItem from "@/components/music/song/SongItem";
-import { ArrowLeft, Dot } from "lucide-react";
-import { useState, useEffect } from "react";
 import Loading from "@/components/loading/Loading";
-import { useRouter } from "next/navigation";
-import { getColorPairing } from "@/lib/colorPair";
-import Image from "next/image";
-import { useSession } from "next-auth/react";
+import AlbumMoreMenu from "@/components/music/album/AlbumMoreMenu";
 
 export default function page({ params }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,9 +17,10 @@ export default function page({ params }) {
   const [albumCoverUrl, setAlbumCoverUrl] = useState("");
   const [artists, setArtists] = useState("Artists");
   const [time, setTime] = useState(null);
+  const [ownsAlbum, setOwnsAlbum] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
   const { data: session } = useSession();
   const router = useRouter();
-  const [ownsAlbum, setOwnsAlbum] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/albums/find/${params.id}`, {
@@ -45,6 +46,23 @@ export default function page({ params }) {
         const seconds = String(date.getSeconds());
         setTime(minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
         setIsLoading(false);
+      });
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/playlists/user?skip=0&limit=100`,
+      {
+        cache: "no-store",
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `${session.accessToken}`,
+        },
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setPlaylists(data);
       });
   }, []);
 
@@ -95,40 +113,27 @@ export default function page({ params }) {
             )}
             <div className="col-span-3 row-span-2 flex h-full grow flex-col items-start justify-center pt-20  font-light">
               <p className="text-2xl">{album?.name}</p>
-              <div className="flex items-center gap-2 opacity-60">
-                <p className="text-lg">{artists}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-lg opacity-60">{artists}</p>
                 {!ownsAlbum && (
                   <>
-                    <Dot />
-                    <p>{time}</p>
+                    <Dot className="opacity-60" />
+                    <p className="opacity-60">{time}</p>
+                  </>
+                )}
+                {ownsAlbum && (
+                  <>
+                    <Dot className="opacity-60" />
+                    <AlbumMoreMenu id={album?.id} />
                   </>
                 )}
               </div>
             </div>
           </div>
-          {ownsAlbum && (
-            <div className="flex gap-4">
-              <div>
-                <AddSong
-                  className="rounded-full p-2 transition-colors hover:bg-zinc-800"
-                  album={album}
-                />
-              </div>
-              <div>
-                <DeleteButton
-                  className={
-                    "rounded-full p-2 transition-colors hover:bg-zinc-800"
-                  }
-                  item={album}
-                  name={"album"}
-                />
-              </div>
-            </div>
-          )}
         </div>
         <div className="col-span-4 row-span-3 flex flex-col overflow-y-auto border-t border-zinc-700 p-5">
           {album.tracks?.map((song, i) => {
-            return <SongItem song={song} key={i} />;
+            return <SongItem song={song} key={i} playlists={playlists} />;
           })}
         </div>
       </div>

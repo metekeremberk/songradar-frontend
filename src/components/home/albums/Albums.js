@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Loading from "../loading/Loading";
-import AlbumCard from "../music/AlbumCard";
+import Loading from "../../loading/Loading";
+import AlbumCard from "../../music/AlbumCard";
 
 export default function Albums() {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function Albums() {
     return (
       <div className="flex justify-between gap-3 overflow-auto">
         {albums.map((album, i) => {
-          return <AlbumCard key={i} music={album} />;
+          return <AlbumCard key={i} album={album} />;
         })}
       </div>
     );
