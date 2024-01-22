@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import Profiles from "./profiles/Profiles";
 
 const SongsByName = dynamic(() =>
   import("@/components/search/songs/SongsByName"),
@@ -45,79 +46,67 @@ export default function SearchContent({ searchWord }) {
       });
   }, []);
 
-  if (searchWord !== "") {
-    return (
-      <div className="p-6">
-        <div className="border-b border-zinc-800 pb-2 pl-2 text-2xl font-semibold">
-          Search results for "{searchWord}"
-        </div>
-        <ToggleGroup
-          type="single"
-          value={toggleValue}
-          onValueChange={(value) => {
-            if (value) {
-              setToggleValue(value);
-            } else {
-              setToggleValue(null);
-            }
-          }}
-        >
-          <ToggleGroupItem value="songs_by_name">Songs by name</ToggleGroupItem>
-          <ToggleGroupItem value="songs_by_artist">
-            Songs by artist
-          </ToggleGroupItem>
-          <ToggleGroupItem value="albums_by_name">
-            Albums by name
-          </ToggleGroupItem>
-          <ToggleGroupItem value="albums_by_artist">
-            Albums by artist
-          </ToggleGroupItem>
-        </ToggleGroup>
-        {!toggleValue && (
-          <div className="space-y-2">
-            <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
-              Songs
-            </p>
-            <div className="flex">
-              <SongsByName searchWord={searchWord} playlists={playlists} />
-              <SongsByArtist searchWord={searchWord} playlists={playlists} />
-            </div>
-            <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
-              Albums
-            </p>
-            <div className="flex">
-              <AlbumsByName searchWord={searchWord} playlists={playlists} />
-              <AlbumsByArtist searchWord={searchWord} playlists={playlists} />
-            </div>
-          </div>
-        )}
-        {toggleValue === "songs_by_name" && (
-          <SongsByName searchWord={searchWord} playlists={playlists} toggled />
-        )}
-        {toggleValue === "songs_by_artist" && (
-          <SongsByArtist
-            searchWord={searchWord}
-            playlists={playlists}
-            toggled
-          />
-        )}
-        {toggleValue === "albums_by_artist" && (
-          <AlbumsByArtist
-            searchWord={searchWord}
-            playlists={playlists}
-            toggled
-          />
-        )}
-        {toggleValue === "albums_by_name" && (
-          <AlbumsByName searchWord={searchWord} playlists={playlists} toggled />
-        )}
-      </div>
-    );
-  }
-
   return (
-    <div className="flex h-full w-full items-center justify-center text-2xl">
-      Start searching for your favorite music!
+    <div className="p-6">
+      <div className="border-b border-zinc-800 pb-2 pl-2 text-2xl font-semibold">
+        Search results for "{searchWord}"
+      </div>
+      <ToggleGroup
+        type="single"
+        value={toggleValue}
+        onValueChange={(value) => {
+          if (value) {
+            setToggleValue(value);
+          } else {
+            setToggleValue(null);
+          }
+        }}
+      >
+        <ToggleGroupItem value="songs_by_name">Songs by name</ToggleGroupItem>
+        <ToggleGroupItem value="songs_by_artist">
+          Songs by artist
+        </ToggleGroupItem>
+        <ToggleGroupItem value="albums_by_name">Albums by name</ToggleGroupItem>
+        <ToggleGroupItem value="albums_by_artist">
+          Albums by artist
+        </ToggleGroupItem>
+      </ToggleGroup>
+      {!toggleValue && (
+        <div className="space-y-2">
+          <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
+            Profiles
+          </p>
+          <div className="w-full">
+            <Profiles searchWord={searchWord} />
+          </div>
+          <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
+            Songs
+          </p>
+          <div className="flex">
+            <SongsByName searchWord={searchWord} playlists={playlists} />
+            <SongsByArtist searchWord={searchWord} playlists={playlists} />
+          </div>
+          <p className="border-b border-zinc-800 py-2 pl-2 text-xl font-semibold">
+            Albums
+          </p>
+          <div className="flex">
+            <AlbumsByName searchWord={searchWord} playlists={playlists} />
+            <AlbumsByArtist searchWord={searchWord} playlists={playlists} />
+          </div>
+        </div>
+      )}
+      {toggleValue === "songs_by_name" && (
+        <SongsByName searchWord={searchWord} playlists={playlists} toggled />
+      )}
+      {toggleValue === "songs_by_artist" && (
+        <SongsByArtist searchWord={searchWord} playlists={playlists} toggled />
+      )}
+      {toggleValue === "albums_by_artist" && (
+        <AlbumsByArtist searchWord={searchWord} playlists={playlists} toggled />
+      )}
+      {toggleValue === "albums_by_name" && (
+        <AlbumsByName searchWord={searchWord} playlists={playlists} toggled />
+      )}
     </div>
   );
 }
