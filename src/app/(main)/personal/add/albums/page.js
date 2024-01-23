@@ -39,15 +39,14 @@ export default function AddAlbumPage() {
         const element = content[i];
 
         if (!element.hasOwnProperty("album_id")) {
-          const date = formData.get("year").split("-");
-          const year = parseInt(date[0]);
-          const month = parseInt(date[1]);
-          const day = parseInt(date[2]);
+          const year = element.year;
+          const month = element.month;
+          const day = element.day;
 
-          const artists = formData.get("artists").split(",");
+          const artists = element.artists.split(",");
 
           const data = {
-            name: formData.get("name"),
+            name: element.name,
             artists: JSON.stringify(artists),
             year: year,
             month: month,
@@ -91,7 +90,7 @@ export default function AddAlbumPage() {
           <p className="text-xl">Add Album</p>
         </div>
         <div className="flex h-full w-full items-center justify-between gap-10">
-          <form className="h-full flex-grow" onSubmit={handleUpload}>
+          <form className="h-full flex-grow">
             <label
               htmlFor="dropzone-file"
               className="flex h-full w-full flex-col items-center justify-center rounded-lg border-2 border-dashed border-zinc-700 bg-zinc-900"
@@ -110,7 +109,7 @@ export default function AddAlbumPage() {
                 <div className="flex flex-col items-center justify-center gap-10 pb-6 pt-5">
                   <div>{file.name}</div>
                   <button
-                    type="submit"
+                    onClick={handleUpload}
                     className="flex gap-2 rounded border border-zinc-700 bg-zinc-300 px-4 py-2 text-zinc-800 transition-colors hover:bg-zinc-400"
                   >
                     Upload <Upload />
